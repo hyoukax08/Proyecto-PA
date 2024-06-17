@@ -5,28 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductionRecipes.Domain.Entities.ControlActions;
 
-namespace ProductionRecipes.Domain.Entities.Fases
+namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
 {
     /// <summary>
     /// Modela la fase
     /// </summary>
-    public class Fase
+    public class Fase : AccionElement
     {
         #region Properties
-        /// <summary>
-        /// Nombre de la fase
-        /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Descripcion de la fase
-        /// </summary>
-        public string Description { get; }
 
         /// <summary>
         /// Duracion de la fase
         /// </summary>
-        public int Duration { get; }
+        public int Duration { get; set; }
         #endregion
 
         /// <summary>
@@ -41,11 +32,9 @@ namespace ProductionRecipes.Domain.Entities.Fases
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="duration"></param>
-        public Fase(List<ControlAction> actionsList, string name, string description, int duration)
+        public Fase(List<ControlAction> actionsList, string name, string description, int duration) : base(name, description)
         {
             ActionsList = actionsList;
-            Name = name;
-            Description = description;
             Duration = duration;
         }
     }

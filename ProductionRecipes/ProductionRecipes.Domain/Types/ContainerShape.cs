@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductionRecipes.Domain.Entities.Types
+namespace ProductionRecipes.Domain.Types
 {
     /// <summary>
     /// Tipos de envase

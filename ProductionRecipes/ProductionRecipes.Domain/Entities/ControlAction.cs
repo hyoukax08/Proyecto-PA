@@ -15,17 +15,17 @@ namespace ProductionRecipes.Domain.Entities.ControlActions
         /// <summary>
         /// Accion a ejecutar.
         /// </summary>
-        public string ActionName { get; }
+        public string ActionName { get; set; }
 
         /// <summary>
         /// Valor de la accion.
         /// </summary>
-        public int Amount { get; }
+        public int Amount { get; set; }
 
         /// <summary>
         /// Unidad de medida o porcentaje de la accion.
         /// </summary>
-        public string MeasurementUnit { get; }
+        public string MeasurementUnit { get; set; }
         #endregion
 
         /// <summary>

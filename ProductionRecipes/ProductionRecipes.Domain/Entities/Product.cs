@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProductionRecipes.Domain.Entities.Types;
+using ProductionRecipes.Domain.Types;
 
 namespace ProductionRecipes.Domain.Entities.Products
 {
@@ -17,24 +17,25 @@ namespace ProductionRecipes.Domain.Entities.Products
         /// <summary>
         /// Nombre del Producto
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
 		/// <summary>
 		/// Nombre de la empresa que lo produce
 		/// </summary>
-		public string CompanyName { get; }
+		public string? CompanyName { get; set; }
 
 		/// <summary>
 		/// Indicador de forma de envase
 		/// </summary>
-		public ContainerShape Shape { get; }
+		public ContainerShape Shape { get; set; }
         #endregion
-
-        public Product(string name, string companyName, ContainerShape shape)
+		/// <summary>
+		/// modela el producto a crear
+		/// </summary>
+		/// <param name="name"></param>
+        public Product(string name)
 		{
 			Name = name;
-			CompanyName = companyName;
-			Shape = shape;
 		}
 	}
 }

@@ -17,8 +17,7 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <summary>
         /// fecha de creation de la receta
         /// </summary>
-        public DateTime CreationDate { get; set; }
-        
+        public DateTime CreationDate { get; }        
         /// <summary>
         /// Fecha de Validacion de la Receta
         /// </summary>
@@ -29,7 +28,7 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// </summary>
         public string? Expertname { get; set; }
 
-        public Product Producttomake { get; set; }
+        public Product ProductToMake { get; set; }
         #endregion
 
         /// <summary>
@@ -45,8 +44,8 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <param name="execFases"></param>
         public Recipe(DateTime creationDate, Product producttomake, List<Operation> execOperation)
         {
-            CreationDate = creationDate;
-            Producttomake = producttomake;
+            CreationDate = DateTime.Now;
+            ProductToMake = producttomake;
             ExecOperation = execOperation;
         }
     }
