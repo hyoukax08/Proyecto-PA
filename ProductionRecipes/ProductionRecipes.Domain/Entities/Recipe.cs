@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProductionRecipes.Domain.Entities.Operations;
+using ProductionRecipes.Domain.Entities.AccionElements.Operations;
 using ProductionRecipes.Domain.Entities.Products;
+using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.Recipe
 {
     /// <summary>
     /// modela la receta
     /// </summary>
-    public class Recipe
+    public class Recipe : Entity
     {
         #region Properties
         /// <summary>

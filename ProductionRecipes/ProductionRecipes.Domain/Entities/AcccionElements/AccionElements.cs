@@ -1,6 +1,13 @@
-﻿namespace ProductionRecipes.Domain.Entities.AccionElements
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ProductionRecipes.Domain.Common;
+
+namespace ProductionRecipes.Domain.Entities.AccionElements
 {
-    public class AccionElement
+    public class AccionElement : Entity
     {
         #region Properties
         /// <summary>
