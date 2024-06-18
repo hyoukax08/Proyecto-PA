@@ -18,7 +18,7 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <summary>
         /// fecha de creation de la receta
         /// </summary>
-        public DateTime CreationDate { get; }        
+        public DateTime CreationDate { get; }
         /// <summary>
         /// Fecha de Validacion de la Receta
         /// </summary>
@@ -29,7 +29,12 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// </summary>
         public string? Expertname { get; set; }
 
+        /// <summary>
+        /// producto a fabricar
+        /// </summary>
         public Product ProductToMake { get; set; }
+
+        public Guid ProductId { get; set; }
         #endregion
 
         /// <summary>

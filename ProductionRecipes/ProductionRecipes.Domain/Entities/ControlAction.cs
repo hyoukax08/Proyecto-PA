@@ -30,6 +30,11 @@ namespace ProductionRecipes.Domain.Entities.ControlActions
         #endregion
 
         /// <summary>
+        /// Requerido por EntityFramework para migraciones
+        /// </summary>
+        protected ControlAction() { }
+
+        /// <summary>
         /// Inicializa la accion de control
         /// </summary>
         /// <param name="actionName"></param>
@@ -41,5 +46,13 @@ namespace ProductionRecipes.Domain.Entities.ControlActions
             Amount = amount;
             MeasurementUnit = measurementUnit;
         }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return ActionName;
+            yield return Amount;
+            yield return MeasurementUnit;
+        }
+
     }
 }
