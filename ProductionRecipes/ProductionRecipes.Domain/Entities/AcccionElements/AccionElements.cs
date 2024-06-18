@@ -7,7 +7,7 @@ using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.AccionElements
 {
-    public class AccionElement : Entity
+    public class AccionElement : ValueObject
     {
         #region Properties
         /// <summary>
@@ -31,5 +31,11 @@ namespace ProductionRecipes.Domain.Entities.AccionElements
             Description = description;
         }
         #endregion
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Name;
+            yield return Description;
+
+        }
     }
 }

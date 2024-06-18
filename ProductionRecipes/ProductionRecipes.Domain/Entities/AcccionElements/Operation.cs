@@ -38,5 +38,11 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Operations
             ExecFases = execFases;
         }
 
+        
+        //protected override IEnumerable<object> GetEqualityComponents()
+        //{
+        //    yield return UnityName;
+        //}
+        
     }
 }
