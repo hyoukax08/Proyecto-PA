@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.ControlActions
 {
     /// <summary>
     /// modela la accion de control
     /// </summary>
-    public class ControlAction
+    public class ControlAction : ValueObject
     {
         #region Properties
         /// <summary>
@@ -29,6 +30,11 @@ namespace ProductionRecipes.Domain.Entities.ControlActions
         #endregion
 
         /// <summary>
+        /// Requerido por EntityFramework para migraciones
+        /// </summary>
+        protected ControlAction() { }
+
+        /// <summary>
         /// Inicializa la accion de control
         /// </summary>
         /// <param name="actionName"></param>
@@ -40,5 +46,13 @@ namespace ProductionRecipes.Domain.Entities.ControlActions
             Amount = amount;
             MeasurementUnit = measurementUnit;
         }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return ActionName;
+            yield return Amount;
+            yield return MeasurementUnit;
+        }
+
     }
 }

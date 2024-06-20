@@ -37,5 +37,10 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
             ActionsList = actionsList;
             Duration = duration;
         }
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Duration;
+
+        }
     }
 }

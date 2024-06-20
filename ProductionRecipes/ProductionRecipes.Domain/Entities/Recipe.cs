@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProductionRecipes.Domain.Entities.Operations;
+using ProductionRecipes.Domain.Entities.AccionElements.Operations;
 using ProductionRecipes.Domain.Entities.Products;
+using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.Recipe
 {
     /// <summary>
     /// modela la receta
     /// </summary>
-    public class Recipe
+    public class Recipe : Entity
     {
         #region Properties
         /// <summary>
         /// fecha de creation de la receta
         /// </summary>
-        public DateTime CreationDate { get; }        
+        public DateTime CreationDate { get; }
         /// <summary>
         /// Fecha de Validacion de la Receta
         /// </summary>
@@ -28,7 +29,12 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// </summary>
         public string? Expertname { get; set; }
 
+        /// <summary>
+        /// producto a fabricar
+        /// </summary>
         public Product ProductToMake { get; set; }
+
+        public Guid ProductId { get; set; }
         #endregion
 
         /// <summary>

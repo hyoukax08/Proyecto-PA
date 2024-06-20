@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProductionRecipes.Domain.Types;
+using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.Products
 {
 	/// <summary>
 	/// Modela el producto
 	/// </summary>
-	public class Product
+	public class Product : Entity
 	{
        
         #region Properties
