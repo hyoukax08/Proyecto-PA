@@ -35,12 +35,18 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         public Product ProductToMake { get; set; }
 
         public Guid ProductId { get; set; }
-        #endregion
 
         /// <summary>
         /// lista de operaciones a ejecutar en un proceso
         /// </summary>
         public List<Operation> ExecOperation { get; set; }
+
+        #endregion
+
+        /// <summary>
+		/// Requerido por EntityFramework para migraciones
+		/// </summary>
+		protected Recipe() { }
 
         /// <summary>
         /// Inicializa la Receta de Produccion
@@ -48,7 +54,7 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <param name="creationDate"></param>
         /// <param name="execOperation"></param>
         /// <param name="execFases"></param>
-        public Recipe(DateTime creationDate, Product producttomake, List<Operation> execOperation)
+        public Recipe(Product producttomake, List<Operation> execOperation, Guid id):base(id)
         {
             CreationDate = DateTime.Now;
             ProductToMake = producttomake;

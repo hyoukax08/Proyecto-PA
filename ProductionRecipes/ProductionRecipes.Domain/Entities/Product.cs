@@ -29,12 +29,18 @@ namespace ProductionRecipes.Domain.Entities.Products
 		/// Indicador de forma de envase
 		/// </summary>
 		public ContainerShape Shape { get; set; }
-        #endregion
+		#endregion
+
+		/// <summary>
+		/// Requerido por EntityFramework para migraciones
+		/// </summary>
+		protected Product() { }
+
 		/// <summary>
 		/// modela el producto a crear
 		/// </summary>
 		/// <param name="name"></param>
-        public Product(string name)
+		public Product(string name, Guid id): base(id)
 		{
 			Name = name;
 		}

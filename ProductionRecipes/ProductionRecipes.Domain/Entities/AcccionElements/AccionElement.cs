@@ -7,7 +7,7 @@ using ProductionRecipes.Domain.Common;
 
 namespace ProductionRecipes.Domain.Entities.AccionElements
 {
-    public class AccionElement : ValueObject
+    public abstract class AccionElement : Entity
     {
         #region Properties
         /// <summary>
@@ -20,22 +20,25 @@ namespace ProductionRecipes.Domain.Entities.AccionElements
         /// </summary>
         public string Description { get; set; }
 
+        #endregion
+
+        /// <summary>
+        /// Requerido por EntityFramework
+        /// </summary>
+        protected AccionElement()
+        {
+
+        }
+
         /// <summary>
         /// Genera la clase <see langword="base"/>
         /// </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
-        public AccionElement(string name, string description)
+        public AccionElement(string name, string description, Guid id):base(id)
         {
             Name = name;
             Description = description;
-        }
-        #endregion
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Name;
-            yield return Description;
-
         }
     }
 }

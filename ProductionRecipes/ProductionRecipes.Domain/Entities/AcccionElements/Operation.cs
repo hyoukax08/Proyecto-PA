@@ -19,12 +19,17 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Operations
         /// Nombre de la unidad sobre la que actua
         /// </summary>
         public string? UnityName { get; set; }
-        #endregion
-
+    
         /// <summary>
         /// Fases a ejecutar en un proceso productivo
         /// </summary>
         public List<Fase> ExecFases { get; set; }
+        #endregion
+
+        /// <summary>
+        /// Requerido por EntityFramework
+        /// </summary>
+        protected Operation() { }
 
         /// <summary>
         /// Incializa la operacion a ejecutar
@@ -33,16 +38,9 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Operations
         /// <param name="description"></param>
         /// <param name="unityName"></param>
         /// <param name="execFases"></param>
-        public Operation(string name, string description, List<Fase> execFases) : base(name, description)
+        public Operation(List<Fase> execFases, string name, string description, Guid id) : base(name, description, id)
         {
             ExecFases = execFases;
         }
-
-        
-        //protected override IEnumerable<object> GetEqualityComponents()
-        //{
-        //    yield return UnityName;
-        //}
-        
     }
 }

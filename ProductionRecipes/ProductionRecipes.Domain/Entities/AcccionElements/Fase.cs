@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProductionRecipes.Domain.Entities.ControlActions;
+using ProductionRecipes.Domain.ValueObjects;
+using ProductionRecipes.Domain.ValueObjects.ControlActions;
 
 namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
 {
@@ -18,12 +19,20 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
         /// Duracion de la fase
         /// </summary>
         public int Duration { get; set; }
-        #endregion
+        
 
         /// <summary>
         /// Lista de acciones de control de la fase
         /// </summary>
         public List<ControlAction> ActionsList { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Requerido por EntityFramework
+        /// </summary>
+        protected Fase() { }
+        
 
         /// <summary>
         /// inicializa una fase
@@ -32,15 +41,10 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
         /// <param name="name"></param>
         /// <param name="description"></param>
         /// <param name="duration"></param>
-        public Fase(List<ControlAction> actionsList, string name, string description, int duration) : base(name, description)
+        public Fase(List<ControlAction> actionsList, string name, string description, Guid id) : base(name, description, id)
         {
             ActionsList = actionsList;
-            Duration = duration;
         }
-        protected override IEnumerable<object> GetEqualityComponents()
-        {
-            yield return Duration;
-
-        }
+       
     }
 }
