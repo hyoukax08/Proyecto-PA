@@ -25,6 +25,8 @@ namespace ProductionRecipes.ConsoleApp
     {
         static void Main(string[] args)
         {
+            if (File.Exists("ProductionDB.sqlite"))
+                File.Delete("ProductionDB.sqlite");
             //creando un contexto para interacturar con la base de datos
             ApplicationContext applicationContext = new("Data Source=ProductionRecipeDB.sqlite");
             //Verififcando la Base de Datos

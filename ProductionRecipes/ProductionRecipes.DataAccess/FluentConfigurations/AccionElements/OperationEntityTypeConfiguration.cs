@@ -15,7 +15,7 @@ namespace ProductionRecipes.DataAccess.FluentConfigurations.AccionElements
     {
         public void Configure(EntityTypeBuilder<Operation> builder)
         {
-            builder.ToTable("OPerations");
+            builder.ToTable("Operations");
             builder.HasBaseType(typeof(AccionElement));
             builder.Ignore(x=>x.ExecFases);
             builder.HasMany(x=>x.ExecFases);
