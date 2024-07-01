@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductionRecipes.Domain.Common;
 
-namespace ProductionRecipes.Domain.Entities.ControlActions
+namespace ProductionRecipes.Domain.ValueObjects.ControlActions
 {
     /// <summary>
     /// modela la accion de control
     /// </summary>
     public class ControlAction : ValueObject
-    {
+    { 
         #region Properties
         /// <summary>
         /// Accion a ejecutar.
