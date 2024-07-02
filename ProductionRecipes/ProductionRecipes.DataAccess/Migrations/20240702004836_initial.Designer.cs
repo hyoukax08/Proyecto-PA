@@ -11,8 +11,8 @@ using ProductionRecipes.DataAccess.Contexts;
 namespace ProductionRecipes.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240701204840_Initial")]
-    partial class Initial
+    [Migration("20240702004836_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,11 +88,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid?>("OperationId")
-                        .HasColumnType("TEXT");
-
-                    b.HasIndex("OperationId");
-
                     b.ToTable("Fases", (string)null);
                 });
 
@@ -124,10 +119,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Fases.Fase", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", null)
-                        .WithMany("ExecFases")
-                        .HasForeignKey("OperationId");
                 });
 
             modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
@@ -137,11 +128,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
-                {
-                    b.Navigation("ExecFases");
                 });
 #pragma warning restore 612, 618
         }

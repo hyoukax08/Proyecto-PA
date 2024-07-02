@@ -17,8 +17,9 @@ namespace ProductionRecipes.DataAccess.FluentConfigurations.AccionElements
         {
             builder.ToTable("Operations");
             builder.HasBaseType(typeof(AccionElement));
-            builder.Ignore(x=>x.ExecFases);
+            
             builder.HasMany(x=>x.ExecFases);
+            builder.Ignore(x => x.ExecFases);
         }
     }
 }

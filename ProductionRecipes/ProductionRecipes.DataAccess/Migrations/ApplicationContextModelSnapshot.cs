@@ -86,11 +86,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid?>("OperationId")
-                        .HasColumnType("TEXT");
-
-                    b.HasIndex("OperationId");
-
                     b.ToTable("Fases", (string)null);
                 });
 
@@ -122,10 +117,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Fases.Fase", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", null)
-                        .WithMany("ExecFases")
-                        .HasForeignKey("OperationId");
                 });
 
             modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
@@ -135,11 +126,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
-                {
-                    b.Navigation("ExecFases");
                 });
 #pragma warning restore 612, 618
         }

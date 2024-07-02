@@ -35,7 +35,7 @@ namespace ProductionRecipes.ConsoleApp
                 //Migrando Base de Datos.Este paso genera la base de datos con las tablas configuradas en su migracion
                 applicationContext.Database.Migrate();
             }
-                //creando entidades para probar BD
+            //creando entidades para probar BD
                 Product product1 = new Product("Nicosilen",Guid.NewGuid());
                 Product product2 = new Product("Paracetamol", Guid.NewGuid());
                 ControlAction controlAction1 = new ControlAction("abrir valvula", 50, "%");
@@ -69,7 +69,7 @@ namespace ProductionRecipes.ConsoleApp
                 listOperations1.Add(operation2);
 
                 Recipe recipe1 = new Recipe(product1, listOperations1,Guid.NewGuid());
-
+                Recipe recipe2 = new Recipe(product2, listOperations1,Guid.NewGuid());
                 //almacenando entidades en BD
                 applicationContext.Products.Add(product1);
                 applicationContext.Products.Add(product2);
@@ -79,7 +79,7 @@ namespace ProductionRecipes.ConsoleApp
                 applicationContext.AccionElements.Add(operation1);
                 applicationContext.AccionElements.Add(operation2);
                 applicationContext.Recipes.Add(recipe1);
-
+                applicationContext.Recipes.Add(recipe2);
                 // Es necesario guardar los cambios para que se actualice la BD
                 applicationContext.SaveChanges();
 
@@ -95,9 +95,9 @@ namespace ProductionRecipes.ConsoleApp
                     .Set<Operation>()
 
                     .FirstOrDefault(o=>o.Id==operation1.Id);
-                Console.WriteLine($"Nueva unidad sobre la que ejecutar la operacion{modifiedoperation.UnityName}");
+                Console.WriteLine($"Nueva unidad sobre la que ejecutara la operacion: {modifiedoperation.Name} => {modifiedoperation.UnityName}");
 
-
+            
                 //eliminando una operacion
                 applicationContext.AccionElements.Remove(operation2);
                 applicationContext.SaveChanges();
@@ -108,7 +108,7 @@ namespace ProductionRecipes.ConsoleApp
                 if (deletedoperation is null)
                     Console.WriteLine("Operation successfully deleted");
 
-
+                
 
 
             }
