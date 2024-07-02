@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductionRecipes.DataAccess.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,6 +34,24 @@ namespace ProductionRecipes.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fases",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Duration = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Fases_AccionElements_Id",
+                        column: x => x.Id,
+                        principalTable: "AccionElements",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,35 +92,6 @@ namespace ProductionRecipes.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Fases",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Duration = table.Column<int>(type: "INTEGER", nullable: false),
-                    OperationId = table.Column<Guid>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fases", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Fases_AccionElements_Id",
-                        column: x => x.Id,
-                        principalTable: "AccionElements",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Fases_Operations_OperationId",
-                        column: x => x.OperationId,
-                        principalTable: "Operations",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Fases_OperationId",
-                table: "Fases",
-                column: "OperationId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Recipes_ProductId",
                 table: "Recipes",
@@ -115,16 +104,16 @@ namespace ProductionRecipes.DataAccess.Migrations
                 name: "Fases");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
-
-            migrationBuilder.DropTable(
                 name: "Operations");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "AccionElements");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }
