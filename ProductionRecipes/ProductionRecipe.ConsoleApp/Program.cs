@@ -39,37 +39,41 @@ namespace ProductionRecipes.ConsoleApp
                 Product product1 = new Product("Nicosilen",Guid.NewGuid());
                 Product product2 = new Product("Paracetamol", Guid.NewGuid());
                 ControlAction controlAction1 = new ControlAction("abrir valvula", 50, "%");
-                ControlAction controlAction2 = new ControlAction("abrir valvula", 100, "%");
-                ControlAction controlAction3 = new ControlAction("abrir valvula", 0, "%");
-                List<ControlAction> listca1 = new List<ControlAction>();
+                ControlAction controlAction2 = new ControlAction("Calentar Resistencia", 80, "Grados Celsius");
+                ControlAction controlAction3 = new ControlAction("Mezclar", 50, "Rpm");
+                ControlAction controlAction4 = new ControlAction("Mezclar", 50, "Rpm");
+                ControlAction controlAction5 = new ControlAction("Encender lampara", 100, "Nits");
+
+            List<ControlAction> listca1 = new List<ControlAction>();
                 listca1.Add(controlAction1);
                 listca1.Add(controlAction2);
-                listca1.Add(controlAction1);
+                listca1.Add(controlAction3);
                 List<ControlAction> listca2 = new List<ControlAction>();
-                listca2.Add(controlAction2);
+                listca2.Add(controlAction4);
                 List<ControlAction> listca3 = new List<ControlAction>();
-                listca3.Add(controlAction3);
+                listca3.Add(controlAction5);
 
-                Fase fase1 = new Fase(listca1, "Pruebas", "Fase de pruebas con aberturas progresivas", Guid.NewGuid());
-                Fase fase2 = new Fase(listca2, "PruebaRapida", "Fase de prueba con apertura total", Guid.NewGuid());
-                Fase fase3 = new Fase(listca3, "Cierre", "cierre total", Guid.NewGuid());
+                Fase fase1 = new Fase(listca1, "Pruebas", "Fase de pruebas completa", Guid.NewGuid());
+                Fase fase2 = new Fase(listca2, "Mezcla", "Fase de pruebas limitada (solo mezcla) ", Guid.NewGuid());
+                Fase fase3 = new Fase(listca3, "Full Lamp", "Enciende la lampara al maximo de su capacidad", Guid.NewGuid());
 
                 List<Fase> listfases1 = new List<Fase>();
                 listfases1.Add(fase1);
                 listfases1.Add(fase3);
                 List<Fase> listfases2 = new List<Fase>();
                 listfases2.Add(fase2);
-                listfases2.Add(fase3);
 
-                Operation operation1 = new Operation(listfases1,"Operacion de Prueba Lenta","Pruebas progresivas y cierre",Guid.NewGuid());
-                Operation operation2 = new Operation(listfases2, "Operacion de Prueba Rapida", "Pruebas Rapida y cierre", Guid.NewGuid());
+                Operation operation1 = new Operation(listfases1,"Operacion de Prueba iluminada","Pruebas con iluminacion",Guid.NewGuid());
+                Operation operation2 = new Operation(listfases2,"Operacion de Prueba limitada", "Mezcla", Guid.NewGuid());
 
                 List<Operation> listOperations1 = new List<Operation>();
                 listOperations1.Add(operation1);
                 listOperations1.Add(operation2);
+                List<Operation> listOperations2 = new List<Operation>();
 
                 Recipe recipe1 = new Recipe(product1, listOperations1,Guid.NewGuid());
-                Recipe recipe2 = new Recipe(product2, listOperations1,Guid.NewGuid());
+                Recipe recipe2 = new Recipe(product2, listOperations2,Guid.NewGuid());
+
                 //almacenando entidades en BD
                 applicationContext.Products.Add(product1);
                 applicationContext.Products.Add(product2);
@@ -93,7 +97,6 @@ namespace ProductionRecipes.ConsoleApp
                 applicationContext.SaveChanges();
                 Operation? modifiedoperation = applicationContext
                     .Set<Operation>()
-
                     .FirstOrDefault(o=>o.Id==operation1.Id);
                 Console.WriteLine($"Nueva unidad sobre la que ejecutara la operacion: {modifiedoperation.Name} => {modifiedoperation.UnityName}");
 
