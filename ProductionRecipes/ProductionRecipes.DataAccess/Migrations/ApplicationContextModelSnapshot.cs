@@ -86,6 +86,11 @@ namespace ProductionRecipes.DataAccess.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("OperationId")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("OperationId");
+
                     b.ToTable("Fases", (string)null);
                 });
 
@@ -93,8 +98,13 @@ namespace ProductionRecipes.DataAccess.Migrations
                 {
                     b.HasBaseType("ProductionRecipes.Domain.Entities.AccionElements.AccionElement");
 
+                    b.Property<Guid?>("RecipeId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("UnityName")
                         .HasColumnType("TEXT");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Operations", (string)null);
                 });
@@ -117,6 +127,35 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Fases.Fase", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", null)
+                        .WithMany("ExecFases")
+                        .HasForeignKey("OperationId");
+
+                    b.OwnsMany("ProductionRecipes.Domain.ValueObjects.ControlActions.ControlAction", "ActionsList", b1 =>
+                        {
+                            b1.Property<Guid>("FaseId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("ActionName")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("Amount")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("MeasurementUnit")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("FaseId", "ActionName");
+
+                            b1.ToTable("ControlAction");
+
+                            b1.WithOwner()
+                                .HasForeignKey("FaseId");
+                        });
+
+                    b.Navigation("ActionsList");
                 });
 
             modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
@@ -126,6 +165,20 @@ namespace ProductionRecipes.DataAccess.Migrations
                         .HasForeignKey("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("ProductionRecipes.Domain.Entities.Recipe.Recipe", null)
+                        .WithMany("ExecOperation")
+                        .HasForeignKey("RecipeId");
+                });
+
+            modelBuilder.Entity("ProductionRecipes.Domain.Entities.Recipe.Recipe", b =>
+                {
+                    b.Navigation("ExecOperation");
+                });
+
+            modelBuilder.Entity("ProductionRecipes.Domain.Entities.AccionElements.Operations.Operation", b =>
+                {
+                    b.Navigation("ExecFases");
                 });
 #pragma warning restore 612, 618
         }

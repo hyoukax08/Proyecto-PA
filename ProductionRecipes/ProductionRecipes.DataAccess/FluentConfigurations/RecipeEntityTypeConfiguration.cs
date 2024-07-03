@@ -19,7 +19,6 @@ namespace ProductionRecipes.DataAccess.FluentConfigurations.Recipes
             builder.ToTable("Recipes");
             base.Configure(builder);
             builder.HasMany(x => x.ExecOperation);
-            builder.Ignore(x => x.ExecOperation);
             builder.HasOne(x => x.ProductToMake).WithMany().HasForeignKey(x => x.ProductId);
         }
     }

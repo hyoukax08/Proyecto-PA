@@ -39,7 +39,7 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <summary>
         /// lista de operaciones a ejecutar en un proceso
         /// </summary>
-        public List<Operation> ExecOperation { get; set; }
+        public List<Operation> ExecOperation { get; set; } = new List<Operation>();
 
         #endregion
 
