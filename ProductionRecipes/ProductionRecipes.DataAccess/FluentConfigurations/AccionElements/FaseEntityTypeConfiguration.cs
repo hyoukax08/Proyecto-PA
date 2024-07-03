@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ProductionRecipes.DataAccess.FluentConfigurations.Common;
 using ProductionRecipes.Domain.Entities.AccionElements;
 using ProductionRecipes.Domain.Entities.AccionElements.Fases;
+using ProductionRecipes.Domain.ValueObjects.ControlActions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,8 +19,7 @@ namespace ProductionRecipes.DataAccess.FluentConfigurations.AccionElements
         {
             builder.ToTable("Fases");
             builder.HasBaseType(typeof(AccionElement));
-            builder.OwnsMany(x => x.ActionsList);
-            builder.Ignore(x=>x.ActionsList);
+            builder.OwnsMany(x => x.ActionsList).HasKey("FaseId", nameof(ControlAction.ActionName));
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Fases
         /// <summary>
         /// Lista de acciones de control de la fase
         /// </summary>
-        public List<ControlAction> ActionsList { get; set; }
+        public List<ControlAction> ActionsList { get; set; } = new List<ControlAction>();
 
         #endregion
 
