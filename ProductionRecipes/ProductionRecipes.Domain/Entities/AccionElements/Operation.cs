@@ -23,7 +23,7 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Operations
         /// <summary>
         /// Fases a ejecutar en un proceso productivo
         /// </summary>
-        public List<Fase> ExecFases { get; set; }
+        public List<Fase> ExecFases { get; set; } = new List<Fase>();
         #endregion
 
         /// <summary>
