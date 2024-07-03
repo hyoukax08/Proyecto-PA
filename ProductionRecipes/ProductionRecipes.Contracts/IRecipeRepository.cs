@@ -21,14 +21,14 @@ namespace ProductionRecipes.Contracts
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        T? GetRecipeById<T>(Guid id) where T : Recipe;
+        Recipe? GetRecipeById(Guid id);
     
         /// <summary>
         /// Obtiene todas las recetas del soporte de datos.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IEnumerable<T> GetAllRecipes<T>() where T : Recipe;
+        public IEnumerable<Recipe> GetAllRecipes();
 
         /// <summary>
         /// Obtiene el id del producto a fabricar de una receta del soporte de datos

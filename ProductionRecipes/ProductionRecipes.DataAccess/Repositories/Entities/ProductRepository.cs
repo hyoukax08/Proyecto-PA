@@ -1,4 +1,4 @@
-﻿using ProductionRecipes.Contracts.Product;
+﻿using ProductionRecipes.Contracts;
 using ProductionRecipes.DataAccess.Contexts;
 using ProductionRecipes.DataAccess.Repositories.Common;
 using ProductionRecipes.Domain.Entities.Products;

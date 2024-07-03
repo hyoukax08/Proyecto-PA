@@ -20,14 +20,14 @@ namespace ProductionRecipes.Contracts
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        T? GetProductById<T>(Guid id) where T : Product;
+        Product? GetProductById(Guid id);
 
         /// <summary>
         /// Obtiene todos los productos del soporte de datos.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public IEnumerable<T> GetAllProducts<T>() where T : Product;
+        public IEnumerable<Product> GetAllProducts();
 
         /// <summary>
         /// Actualiza el valor de un producto

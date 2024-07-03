@@ -1,4 +1,4 @@
-﻿using ProductionRecipes.Contracts.AccionElements;
+﻿using ProductionRecipes.Contracts;
 using ProductionRecipes.DataAccess.Contexts;
 using ProductionRecipes.DataAccess.Repositories.Common;
 using ProductionRecipes.Domain.Entities.AccionElements;
@@ -29,7 +29,7 @@ namespace ProductionRecipes.DataAccess.Repositories.AccionElements
             _context.AccionElements.Remove(accionelement);
         }
 
-        public IEnumerable<T> GetAllAccionElement<T>() where T : AccionElement
+        public IEnumerable<T> GetAllAccionElements<T>() where T : AccionElement
         {
             return _context.Set<T>().ToList();
         }
