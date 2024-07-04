@@ -44,6 +44,12 @@ namespace ProductionRecipes.DataAccess.Repositories.Recipes
         {
             _context.Recipes.Update(recipe);
         }
+        public void ValidateRecipe(Recipe recipe, string expert, DateTime validationdate)
+        {
+            recipe.Expertname = expert;
+            recipe.ValidationDate = validationdate;
+            _context.Recipes.Update(recipe);
+        }
 
         public Guid? GetIdOfProductToMake(Guid id)
         {

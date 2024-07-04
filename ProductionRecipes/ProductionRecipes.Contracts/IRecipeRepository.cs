@@ -48,5 +48,13 @@ namespace ProductionRecipes.Contracts
         /// </summary>
         /// <param name="recipe"></param>
         void DeleteRecipe(Recipe recipe);
+
+        /// <summary>
+        /// Actualiza los datos de validacion de la receta
+        /// </summary>
+        /// <param name="recipe"></param>
+        /// <param name="expert"></param>
+        /// <param name="validationdate"></param>
+        void ValidateRecipe(Recipe recipe, string expert, DateTime validationdate);
     }
 }

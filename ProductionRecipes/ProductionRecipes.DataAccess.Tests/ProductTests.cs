@@ -46,7 +46,7 @@ namespace ProductionRecipes.DataAccess.Tests
                 _unitOfWork.SaveChanges();
 
                 // Assert
-                Product? loadedProduct = _productRepository.GetProductById<Product>(id);
+                Product? loadedProduct = _productRepository.GetProductById(id);
                 Assert.IsNotNull(loadedProduct);
             }
 
@@ -55,13 +55,13 @@ namespace ProductionRecipes.DataAccess.Tests
             public void Can_Get_Product_By_Id(int position)
             {
                 // Arrange
-                var products = _productRepository.GetAllProducts<Product>().ToList();
+                var products = _productRepository.GetAllProducts().ToList();
                 Assert.IsNotNull(products);
                 Assert.IsTrue(position < products.Count);
                 Product productToGet = products[position];
 
                 // Execute
-                Product? loadedProduct = _productRepository.GetProductById<Product>(productToGet.Id);
+                Product? loadedProduct = _productRepository.GetProductById(productToGet.Id);
 
                 // Assert
                 Assert.IsNotNull(loadedProduct);
@@ -73,31 +73,33 @@ namespace ProductionRecipes.DataAccess.Tests
                 // Arrange
 
                 // Execute
-                Product? loadedProduct = _productRepository.GetProductById<Product>(Guid.Empty);
+                Product? loadedProduct = _productRepository.GetProductById(Guid.Empty);
 
                 // Assert
                 Assert.IsNull(loadedProduct);
             }
           
-            [DataRow(0, "Unidad inicial")]
+            [DataRow(0, "BioCubaFarma", ContainerShape.Ampulas)]
             [TestMethod]
-            public void Can_Update_Product(int position, string name)
+            public void Can_Update_Product(int position, string companyname, ContainerShape containerShape)
             {
                 // Arrange
-                var product = _productRepository.GetAllProducts<Product>().ToList();
+                var product = _productRepository.GetAllProducts().ToList();
                 Assert.IsNotNull(product);
                 Assert.IsTrue(position < product.Count);
                 Product productToUpdate = product[position];
 
                 // Execute
-                productToUpdate.Name = name;
+                productToUpdate.CompanyName = companyname;
+                productToUpdate.Shape = containerShape;
                 _productRepository.UpdateProduct(productToUpdate);
                 _unitOfWork.SaveChanges();
 
                 // Assert
-                Product? loadedProduct = _productRepository.GetProductById<Product>(productToUpdate.Id);
+                Product? loadedProduct = _productRepository.GetProductById(productToUpdate.Id);
                 Assert.IsNotNull(loadedProduct);
-                Assert.AreEqual(loadedProduct.Name, name);
+                Assert.AreEqual(loadedProduct.CompanyName, companyname);
+                Assert.AreEqual(loadedProduct.Shape, containerShape);
             }
 
             [DataRow(0)]
@@ -105,7 +107,7 @@ namespace ProductionRecipes.DataAccess.Tests
             public void Can_Delete_Product(int position)
             {
                 // Arrange
-                var products = _productRepository.GetAllProducts<Product>().ToList();
+                var products = _productRepository.GetAllProducts().ToList();
                 Assert.IsNotNull(products);
                 Assert.IsTrue(position < products.Count);
                 Product productToDelete = products[position];
@@ -115,7 +117,7 @@ namespace ProductionRecipes.DataAccess.Tests
                 _unitOfWork.SaveChanges();
 
                 // Assert
-                Product? loadedProduct = _productRepository.GetProductById<Product>(productToDelete.Id);
+                Product? loadedProduct = _productRepository.GetProductById(productToDelete.Id);
                 Assert.IsNull(loadedProduct);
             }
 

@@ -34,7 +34,7 @@ namespace ProductionRecipes.DataAccess.Tests
         }
 
         [TestMethod]
-        public void Can_Create_Recipe(Product producttomake, List<Operation> execOperation)
+        public void Can_Create_Recipe()
         {
             // Arrange
             Guid id = Guid.NewGuid();
@@ -47,7 +47,7 @@ namespace ProductionRecipes.DataAccess.Tests
             _unitOfWork.SaveChanges();
 
             // Assert
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById<Recipe>(id);
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(id);
             Assert.IsNotNull(loadedRecipe);
         }
 
@@ -56,13 +56,13 @@ namespace ProductionRecipes.DataAccess.Tests
         public void Can_Get_Recipe_By_Id(int position)
         {
             // Arrange
-            var recipes = _recipeRepository.GetAllRecipes<Recipe>().ToList();
+            var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToGet = recipes[position];
 
             // Execute
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById<Recipe>(recipeToGet.Id);
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToGet.Id);
 
             // Assert
             Assert.IsNotNull(loadedRecipe);
@@ -73,29 +73,53 @@ namespace ProductionRecipes.DataAccess.Tests
             // Arrange
 
             // Execute
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById<Recipe>(Guid.Empty);
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(Guid.Empty);
 
             // Assert
             Assert.IsNull(loadedRecipe);
         }
-
-        public void Can_Update_Recipe(Product producttomake, List<Operation> execOperation)
+        [DataRow(1)]
+        [TestMethod]
+        public void Can_Update_Recipe(int position, Product producttomake, Guid productId)
         {
             // Arrange
-            var recipes = _recipeRepository.GetAllRecipes<Recipe>().ToList();
+            var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToUpdate = recipes[position];
 
             // Execute
-            recipeToUpdate.UnityName = unityname;
+            recipeToUpdate.ProductId = productId;
+            recipeToUpdate.ProductToMake = producttomake;
             _recipeRepository.UpdateRecipe(recipeToUpdate);
             _unitOfWork.SaveChanges();
 
             // Assert
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById<Recipe>(recipeToUpdate.Id);
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToUpdate.Id);
             Assert.IsNotNull(loadedRecipe);
-            Assert.AreEqual(loadedRecipe.UnityName, unityname);
+            Assert.AreEqual(loadedRecipe.ProductId, productId);
+            Assert.AreEqual(loadedRecipe.ProductToMake, producttomake);
+
+        }
+        [DataRow(0, "Ing. Luis Alejandro Perez Vazquez", "10/11/2024")]
+        [TestMethod]
+        public void Can_Validate_Recipe(int position, string expert, DateTime validationDate)
+        {
+            // Arrange
+            var recipes = _recipeRepository.GetAllRecipes().ToList();
+            Assert.IsNotNull(recipes);
+            Assert.IsTrue(position < recipes.Count);
+            Recipe recipeToValidate = recipes[position];
+
+            // Execute
+            _recipeRepository.ValidateRecipe(recipeToValidate, expert, validationDate);
+            _unitOfWork.SaveChanges();
+
+            // Assert
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToValidate.Id);
+            Assert.IsNotNull(loadedRecipe);
+            Assert.AreEqual(loadedRecipe.Expertname , expert);
+            Assert.AreEqual(loadedRecipe.ValidationDate, validationDate);
         }
 
         [DataRow(0)]
@@ -103,7 +127,7 @@ namespace ProductionRecipes.DataAccess.Tests
         public void Can_Delete_Recipe(int position)
         {
             // Arrange
-            var recipes = _recipeRepository.GetAllRecipes<Recipe>().ToList();
+            var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToDelete = recipes[position];
@@ -113,7 +137,7 @@ namespace ProductionRecipes.DataAccess.Tests
             _unitOfWork.SaveChanges();
 
             // Assert
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById<Recipe>(recipeToDelete.Id);
+            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToDelete.Id);
             Assert.IsNull(loadedRecipe);
         }
 
