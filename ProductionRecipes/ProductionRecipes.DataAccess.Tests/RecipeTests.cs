@@ -51,7 +51,7 @@ namespace ProductionRecipes.DataAccess.Tests
             Assert.IsNotNull(loadedRecipe);
         }
 
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Get_Recipe_By_Id(int position)
         {
@@ -78,48 +78,49 @@ namespace ProductionRecipes.DataAccess.Tests
             // Assert
             Assert.IsNull(loadedRecipe);
         }
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
-        public void Can_Update_Recipe(int position, Product producttomake, Guid productId)
+        public void Can_Update_Recipe(int position)
         {
             // Arrange
+            Product product2 = new Product("prueba3", Guid.NewGuid() );
             var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToUpdate = recipes[position];
 
             // Execute
-            recipeToUpdate.ProductId = productId;
-            recipeToUpdate.ProductToMake = producttomake;
+            recipeToUpdate.ProductId = product2.Id;
+            recipeToUpdate.ProductToMake = product2;
             _recipeRepository.UpdateRecipe(recipeToUpdate);
             _unitOfWork.SaveChanges();
 
             // Assert
             Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToUpdate.Id);
             Assert.IsNotNull(loadedRecipe);
-            Assert.AreEqual(loadedRecipe.ProductId, productId);
-            Assert.AreEqual(loadedRecipe.ProductToMake, producttomake);
+            Assert.AreEqual(loadedRecipe.ProductId, product2.Id);
 
         }
         [DataRow(0, "Ing. Luis Alejandro Perez Vazquez", "10/11/2024")]
         [TestMethod]
-        public void Can_Validate_Recipe(int position, string expert, DateTime validationDate)
+        public void Can_Validate_Recipe(int position, string expert, string validationDateString)
         {
             // Arrange
+            DateTime validationDateTime = DateTime.Parse(validationDateString);
             var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToValidate = recipes[position];
 
             // Execute
-            _recipeRepository.ValidateRecipe(recipeToValidate, expert, validationDate);
+            _recipeRepository.ValidateRecipe(recipeToValidate, expert, validationDateTime);
             _unitOfWork.SaveChanges();
 
             // Assert
             Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToValidate.Id);
             Assert.IsNotNull(loadedRecipe);
             Assert.AreEqual(loadedRecipe.Expertname , expert);
-            Assert.AreEqual(loadedRecipe.ValidationDate, validationDate);
+            Assert.AreEqual(loadedRecipe.ValidationDate, validationDateTime);
         }
 
         [DataRow(0)]

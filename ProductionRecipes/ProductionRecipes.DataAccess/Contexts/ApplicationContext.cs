@@ -23,11 +23,11 @@ namespace ProductionRecipes.DataAccess.Contexts
         /// </summary>
         public DbSet<AccionElement> AccionElements { get; set; }
         /// <summary>
-        /// Tabla de órdenes de compra.
+        /// Tabla de productos
         /// </summary>
         public DbSet<Product> Products { get; set; }
         /// <summary>
-        /// Tabla de vehículos.
+        /// Tabla de recetas.
         /// </summary>
         public DbSet<Recipe> Recipes { get; set; }
 

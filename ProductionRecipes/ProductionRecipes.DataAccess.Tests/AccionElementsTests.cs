@@ -54,7 +54,7 @@ namespace ProductionRecipes.DataAccess.Tests
         [DataRow("Fase 1", "Fase de prueba")]
         [DataRow("Fase 2", "Fase de correcion")]
         [TestMethod]
-        public void Can_Create_Fase(List<ControlAction> actionsList, string name, string description)
+        public void Can_Create_Fase( string name, string description)
         {
             // Arrange
             Guid id = Guid.NewGuid();

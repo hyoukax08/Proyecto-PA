@@ -15,7 +15,7 @@ namespace ProductionRecipes.DataAccess.Tests.Utilities
         /// Obtiene la cadena de conexión a utilizar en las pruebas.
         /// </summary>
         /// <returns></returns>
-        public static string GetConnectionString() => "Data Source=Data.sqlite";
+        public static string GetConnectionString() => "Data Source=ProductionRecipeDB.sqlite";
 
     }
 }
