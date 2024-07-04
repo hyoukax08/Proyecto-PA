@@ -14,4 +14,10 @@
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProductionRecipes.Contracts\ProductionRecipes.Contracts.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.DataAccess\ProductionRecipes.DataAccess.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.Domain\ProductionRecipes.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

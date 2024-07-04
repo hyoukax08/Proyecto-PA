@@ -9,13 +9,13 @@ using System;
 namespace ProductionRecipes.DataAccess.Tests
 {
     [TestClass]
-    public class AccionElementTests
+    public class ProductTests
     {
 
         private IProductRepository _productRepository;
         private IUnitOfWork _unitOfWork;
 
-        public AccionElementTests()
+        public ProductTests()
         {
             ApplicationContext context =
             new ApplicationContext(ConnectionStringProvider.GetConnectionString());
