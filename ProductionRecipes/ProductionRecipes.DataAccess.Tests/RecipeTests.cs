@@ -78,19 +78,19 @@ namespace ProductionRecipes.DataAccess.Tests
             // Assert
             Assert.IsNull(loadedRecipe);
         }
-        [DataRow(0)]
+        [DataRow(1)]
         [TestMethod]
         public void Can_Update_Recipe(int position)
         {
             // Arrange
-            Product product2 = new Product("prueba3", Guid.NewGuid() );
+            Guid id = Guid.NewGuid();
+            Product product2 = new Product("prueba3", id );
             var recipes = _recipeRepository.GetAllRecipes().ToList();
             Assert.IsNotNull(recipes);
             Assert.IsTrue(position < recipes.Count);
             Recipe recipeToUpdate = recipes[position];
 
             // Execute
-            recipeToUpdate.ProductId = product2.Id;
             recipeToUpdate.ProductToMake = product2;
             _recipeRepository.UpdateRecipe(recipeToUpdate);
             _unitOfWork.SaveChanges();
@@ -142,6 +142,23 @@ namespace ProductionRecipes.DataAccess.Tests
             Assert.IsNull(loadedRecipe);
         }
 
+        [DataRow(0)]
+        [TestMethod]
+        public void Can_Get_ProductId_From_Recipe(int position)
+        {
+            // Arrange
+            var recipes = _recipeRepository.GetAllRecipes().ToList();
+            Assert.IsNotNull(recipes);
+            Assert.IsTrue(position < recipes.Count);
+            Recipe recipeToGetProductIdFrom = recipes[position];
+
+            // Execute
+            Guid? ProductIdObtained = _recipeRepository.GetIdOfProductToMake(recipeToGetProductIdFrom.Id);
+
+            // Assert
+            Assert.IsNotNull(ProductIdObtained);
+            Assert.AreEqual(recipeToGetProductIdFrom.ProductId, ProductIdObtained);
+        }
     }
 
 }
