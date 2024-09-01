@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProductionRecipes.GrpcProtos";
+
+package GrpcProtos;
+
+message GetRequest{
+	string id = 1;
+}
+
+message DeleteRequest{
+	string id = 1;
+}
+
+message ControlAction{
+	string actionName = 1;
+	int32 amount = 2;
+	string measureunit = 3;
+}
+enum ContainerShape{
+	botella = 0;
+	caja = 1;
+	ampula = 2;
+	blister = 3;
+	bolsa = 4;
+}

@@ -7,21 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Protobuf Include="*.proto" GrpcServices="Both" />
+    <PackageReference Include="MediatR" Version="12.3.0" />
   </ItemGroup>
 
-	<ItemGroup>
-		
-	</ItemGroup>
-	
-  <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.27.2" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
-  </ItemGroup>
-	
   <ItemGroup>
     <ProjectReference Include="..\ProductionRecipes.Contracts\ProductionRecipes.Contracts.csproj" />
-    <ProjectReference Include="..\ProductionRecipes.DataAccess\ProductionRecipes.DataAccess.csproj" />
     <ProjectReference Include="..\ProductionRecipes.Domain\ProductionRecipes.Domain.csproj" />
   </ItemGroup>
 

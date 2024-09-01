@@ -1,0 +1,39 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProductionRecipes.GrpcProtos";
+
+package GrpcProtos;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "common.proto";
+
+service Product {
+  rpc CreateProduct (CreateProductRequest) returns (ProductDTO);
+  rpc GetProduct (GetRequest) returns (NullableProductDTO);
+  rpc GetAllProducts (google.protobuf.Empty) returns (Products);
+  rpc UpdateProduct(ProductDTO) returns (google.protobuf.Empty);
+  rpc DeleteProduct(DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message ProductDTO{
+	string id = 1;
+	string name =2;
+	google.protobuf.StringValue companyname = 3;
+	ContainerShape containerShape = 4;
+}
+message Products{
+	repeated ProductDTO items = 1;
+}
+
+message NullableProductDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		ProductDTO product = 2;
+	}
+}
+
+message CreateProductRequest{
+	string name = 1;
+}

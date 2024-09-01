@@ -1,0 +1,54 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProductionRecipes.GrpcProtos";
+
+package GrpcProtos;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "common.proto";
+import "operation.proto";
+import "product.proto";
+
+service Recipe {
+  rpc CreateRecipe (CreateRecipeRequest) returns (RecipeDTO);
+  rpc GetRecipe (GetRequest) returns (NullableRecipeDTO);
+  rpc GetAllRecipes (google.protobuf.Empty) returns (Recipes);
+  rpc UpdateRecipe(RecipeDTO) returns (google.protobuf.Empty);
+  rpc DeleteRecipe(DeleteRequest) returns (google.protobuf.Empty);
+  rpc ValidateRecipe(ValidateRecipeRequest) returns (google.protobuf.Empty);;
+  rpc GetIdOfProductToMake(GetRequest) returns (NullableProductDTO);
+}
+
+message RecipeDTO{
+	string id = 1;
+	google.protobuf.Timestamp creationdate = 2;
+	google.protobuf.Timestamp validationdate = 3;
+	google.protobuf.StringValue expertname = 4;
+	ProductDTO producttomake = 5;
+	string productid = 6;
+	repeated OperationDTO operationlist = 7;
+}
+message Recipes{
+	repeated RecipeDTO items = 1;
+}
+
+message NullableRecipeDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		RecipeDTO recipe = 2;
+	}
+}
+
+message CreateRecipeRequest{
+	ProductDTO producttomake = 1;
+	repeated OperationDTO operationlist = 2;
+}
+
+message ValidateRecipeRequest{
+	RecipeDTO recipe = 1;
+	string expert = 2;
+	google.protobuf.Timestamp validationdate = 3;
+}

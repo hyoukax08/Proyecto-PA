@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,22 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-	<Protobuf Include="*.proto" GrpcServices="Both" />
-  </ItemGroup>
-
-	<ItemGroup>
-		
-	</ItemGroup>
-	
-  <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.27.2" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
-  </ItemGroup>
-	
-  <ItemGroup>
     <ProjectReference Include="..\ProductionRecipes.Contracts\ProductionRecipes.Contracts.csproj" />
     <ProjectReference Include="..\ProductionRecipes.DataAccess\ProductionRecipes.DataAccess.csproj" />
     <ProjectReference Include="..\ProductionRecipes.Domain\ProductionRecipes.Domain.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.GrpcProtos\ProductionRecipes.GrpcProtos.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,44 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "ProductionRecipes.GrpcProtos";
+
+package GrpcProtos;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "common.proto";
+import "fase.proto";
+
+service Operation {
+  rpc CreateOperation (CreateOperationRequest) returns (OperationDTO);
+  rpc GetOperation (GetRequest) returns (NullableOperationDTO);
+  rpc GetAllOperations (google.protobuf.Empty) returns (Operations);
+  rpc UpdateOperation(OperationDTO) returns (google.protobuf.Empty);
+  rpc DeleteOperation(DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message OperationDTO{
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	google.protobuf.StringValue unityname = 4;
+	repeated FaseDTO faselist = 5;
+
+}
+message Operations{
+	repeated OperationDTO items = 1;
+}
+
+message NullableOperationDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		OperationDTO operation = 2;
+	}
+}
+
+message CreateOperationRequest{
+	string name = 1;
+	string description = 2;
+	repeated FaseDTO faselist = 3;
+}
