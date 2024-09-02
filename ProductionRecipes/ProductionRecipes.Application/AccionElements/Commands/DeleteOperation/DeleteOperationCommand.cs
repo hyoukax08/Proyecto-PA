@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductionRecipes.Application.Abstract;
 
-namespace ProductionRecipes.Application.Commands.DeleteOperation
+namespace ProductionRecipes.Application.AccionElements.Commands.DeleteOperation
 {
     public record DeleteOperationCommand(Guid Id) : ICommand;
 }

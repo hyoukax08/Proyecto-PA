@@ -7,7 +7,7 @@ using ProductionRecipes.Application.Abstract;
 using ProductionRecipes.Contracts;
 using ProductionRecipes.Domain.Entities.AccionElements.Operations;
 
-namespace ProductionRecipes.Application.Commands.DeleteOperation
+namespace ProductionRecipes.Application.AccionElements.Commands.DeleteOperation
 {
     public class DeleteOperationCommandHandler
         : ICommandHandler<DeleteOperationCommand>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductionRecipes.Application.Abstract;
 
-namespace ProductionRecipes.Application.Commands.DeleteFase
+namespace ProductionRecipes.Application.AccionElements.Commands.DeleteFase
 {
     public record DeleteFaseCommand(Guid Id) : ICommand;
 }

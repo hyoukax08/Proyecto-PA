@@ -20,7 +20,12 @@ namespace ProductionRecipes.Services
 
             // Add services to the container.
             builder.Services.AddGrpc();
-          
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddMediatR(new MediatRServiceConfiguration()
+            {
+                AutoRegisterRequestProcessors = true,
+            }
+           .RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
 
             builder.Services.AddSingleton("ProductionDB.sqlite");
             builder.Services.AddScoped<ApplicationContext>();
@@ -30,7 +35,7 @@ namespace ProductionRecipes.Services
             builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 
 
-            //builder.Services.AddScoped<IPriceRepository, ApplicationRepository>();
+           
 
             var app = builder.Build();
 

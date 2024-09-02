@@ -7,7 +7,7 @@ using ProductionRecipes.Domain.Entities.AccionElements.Fases;
 using ProductionRecipes.Application.Abstract;
 using ProductionRecipes.Contracts;
 
-namespace ProductionRecipes.Application.Commands.DeleteFase
+namespace ProductionRecipes.Application.AccionElements.Commands.DeleteFase
 {
     public class DeleteFaseCommandHandler
         : ICommandHandler<DeleteFaseCommand>
