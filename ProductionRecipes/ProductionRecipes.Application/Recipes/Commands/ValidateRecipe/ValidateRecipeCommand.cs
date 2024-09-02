@@ -8,5 +8,5 @@ using ProductionRecipes.Domain.Entities.Recipe;
 
 namespace ProductionRecipes.Application.Recipes.Commands.ValidateRecipe
 {
-    public record ValidateRecipeCommand(Recipe Recipe, string Name, DateTime ValidationDate) : ICommand;
+    public record ValidateRecipeCommand(Recipe Recipe, string ExpertName, DateTime ValidationDate) : ICommand;
 }

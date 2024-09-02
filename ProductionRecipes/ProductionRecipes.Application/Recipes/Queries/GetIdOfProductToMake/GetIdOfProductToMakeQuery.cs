@@ -9,5 +9,5 @@ using ProductionRecipes.Domain.Entities.Products;
 
 namespace ProductionRecipes.Application.Recipes.Queries.GetIdOfProductToMake
 {
-    public record GetIdOfProductToMakeQuery(Guid ID) : IQuery<Product?>;
+    public record GetIdOfProductToMakeQuery(Guid ID) : IQuery<Guid?>;
 }
