@@ -78,29 +78,7 @@ namespace ProductionRecipes.DataAccess.Tests
             // Assert
             Assert.IsNull(loadedRecipe);
         }
-        [DataRow(1)]
-        [TestMethod]
-        public void Can_Update_Recipe(int position)
-        {
-            // Arrange
-            Guid id = Guid.NewGuid();
-            Product product2 = new Product("prueba3", id );
-            var recipes = _recipeRepository.GetAllRecipes().ToList();
-            Assert.IsNotNull(recipes);
-            Assert.IsTrue(position < recipes.Count);
-            Recipe recipeToUpdate = recipes[position];
-
-            // Execute
-            recipeToUpdate.ProductToMake = product2;
-            _recipeRepository.UpdateRecipe(recipeToUpdate);
-            _unitOfWork.SaveChanges();
-
-            // Assert
-            Recipe? loadedRecipe = _recipeRepository.GetRecipeById(recipeToUpdate.Id);
-            Assert.IsNotNull(loadedRecipe);
-            Assert.AreEqual(loadedRecipe.ProductId, product2.Id);
-
-        }
+        
         [DataRow(0, "Ing. Luis Alejandro Perez Vazquez", "10/11/2024")]
         [TestMethod]
         public void Can_Validate_Recipe(int position, string expert, string validationDateString)

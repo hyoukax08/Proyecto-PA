@@ -14,7 +14,7 @@ namespace ProductionRecipes.Services.Mappers
                 .ForMember(t => t.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(t => t.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(t => t.Duration, o => o.MapFrom(s => s.Duration))
-                .ForMember(t => t.Actionlist, o => o.MapFrom(s => new Google.Protobuf.Collections.RepeatedField<Domain.ValueObjects.ControlActions.ControlAction>()));
+                .ForMember(t => t.Actionlist, o => o.MapFrom(s => s.ActionsList));
 
 
 
@@ -26,7 +26,7 @@ namespace ProductionRecipes.Services.Mappers
                 .ForMember(t => t.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(t => t.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(t => t.Duration, o => o.MapFrom(s => s.Duration))
-                .ForMember(t => t.ActionsList, o => o.MapFrom(s => new List<ControlAction>()));
+                .ForMember(t => t.ActionsList, o => o.MapFrom(s => s.Actionlist));
 
         }
     }

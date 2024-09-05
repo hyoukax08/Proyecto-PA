@@ -19,13 +19,13 @@ service Recipe {
   rpc UpdateRecipe(RecipeDTO) returns (google.protobuf.Empty);
   rpc DeleteRecipe(DeleteRequest) returns (google.protobuf.Empty);
   rpc ValidateRecipe(ValidateRecipeRequest) returns (google.protobuf.Empty);;
-  rpc GetIdOfProductToMake(GetRequest) returns (NullableProductDTO);
+  rpc GetIdOfProductToMake(GetRequest) returns (NullableProductID);
 }
 
 message RecipeDTO{
 	string id = 1;
-	google.protobuf.Timestamp creationdate = 2;
-	google.protobuf.Timestamp validationdate = 3;
+	string creationdate = 2;
+	string validationdate = 3;
 	google.protobuf.StringValue expertname = 4;
 	ProductDTO producttomake = 5;
 	string productid = 6;
@@ -42,6 +42,13 @@ message NullableRecipeDTO{
 	}
 }
 
+message NullableProductID{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		string producttomakeid = 2 ;
+	}
+}
+
 message CreateRecipeRequest{
 	ProductDTO producttomake = 1;
 	repeated OperationDTO operationlist = 2;
@@ -50,5 +57,5 @@ message CreateRecipeRequest{
 message ValidateRecipeRequest{
 	RecipeDTO recipe = 1;
 	string expert = 2;
-	google.protobuf.Timestamp validationdate = 3;
+	string validationdate = 3;
 }

@@ -14,7 +14,7 @@ namespace ProductionRecipes.Services.Mappers
                 .ForMember(t => t.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(t => t.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(t => t.Unityname, o => o.MapFrom(s => s.UnityName))
-                .ForMember(t => t.Faselist, o => o.MapFrom(s => new Google.Protobuf.Collections.RepeatedField<Domain.Entities.AccionElements.Fases.Fase>()));
+                .ForMember(t => t.Faselist, o => o.MapFrom(s => s.ExecFases));
 
 
 
@@ -26,7 +26,7 @@ namespace ProductionRecipes.Services.Mappers
                 .ForMember(t => t.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(t => t.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(t => t.UnityName, o => o.MapFrom(s => s.Unityname))
-                .ForMember(t => t.ExecFases, o => o.MapFrom(s => new List<FaseDTO>()));
+                .ForMember(t => t.ExecFases, o => o.MapFrom(s => s.Faselist));
 
         }
     }

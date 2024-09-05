@@ -19,7 +19,10 @@ namespace ProductionRecipes.Services
             // For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
 
             // Add services to the container.
-            builder.Services.AddGrpc();
+            builder.Services.AddGrpc(options => { options.EnableDetailedErrors = true;
+                options.MaxReceiveMessageSize = 2 * 1024 * 1024;//2mb
+                options.MaxSendMessageSize = 5 * 1024 * 1024;
+            });
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
             builder.Services.AddMediatR(new MediatRServiceConfiguration()
             {
@@ -27,7 +30,7 @@ namespace ProductionRecipes.Services
             }
            .RegisterServicesFromAssemblies(typeof(AssemblyReference).Assembly));
 
-            builder.Services.AddSingleton("ProductionDB.sqlite");
+            builder.Services.AddSingleton("Data Source=ProductionRecipeDB.sqlite");
             builder.Services.AddScoped<ApplicationContext>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAccionElementRepository, AccionElementRepository>();

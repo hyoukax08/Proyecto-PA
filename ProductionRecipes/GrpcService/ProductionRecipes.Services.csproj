@@ -14,7 +14,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ProductionRecipes.Application\ProductionRecipes.Application.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.Contracts\ProductionRecipes.Contracts.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.DataAccess\ProductionRecipes.DataAccess.csproj" />
+    <ProjectReference Include="..\ProductionRecipes.Domain\ProductionRecipes.Domain.csproj" />
     <ProjectReference Include="..\ProductionRecipes.GrpcProtos\ProductionRecipes.GrpcProtos.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
