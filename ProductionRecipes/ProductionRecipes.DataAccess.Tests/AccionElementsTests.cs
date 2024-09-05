@@ -40,7 +40,7 @@ namespace ProductionRecipes.DataAccess.Tests
             // Arrange
             Guid id = Guid.NewGuid();
             List<Fase> listfases1 = new List<Fase>();
-            Operation operation1 = new(listfases1, name, description, id);
+            Operation operation1 = new( name, description, id);
 
             // Execute
             _accionElementRepository.AddAccionElement(operation1);

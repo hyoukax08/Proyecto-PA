@@ -51,7 +51,6 @@ message NullableProductID{
 
 message CreateRecipeRequest{
 	ProductDTO producttomake = 1;
-	repeated OperationDTO operationlist = 2;
 }
 
 message ValidateRecipeRequest{

@@ -10,6 +10,6 @@ using ProductionRecipes.Application.Abstract;
 
 namespace ProductionRecipes.Application.AccionElements.Commands.CreateOperation
 {
-    public record CreateOperationCommand(List<Fase> FaseList, string Name, string Description) : ICommand<Operation>;
+    public record CreateOperationCommand( string Name, string Description) : ICommand<Operation>;
     
 }

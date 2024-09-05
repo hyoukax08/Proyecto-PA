@@ -18,6 +18,8 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using ProductionRecipes.GrpcProtos;
 using Grpc.Net.Client;
+using ProductionRecipes.Services.Mappers;
+using ProductionRecipes.Services.Services;
 
 
 
@@ -44,14 +46,15 @@ namespace ProductionRecipes.ConsoleApp
             bool turnoff = false;
             while (turnoff == false)
             {
+                //Console.Clear();
                 Console.WriteLine("Menu Principal");
                 Console.WriteLine("Presione 1 para modificar productos, 2 para recetas y sus derivados, 3 Salir");
 
-                int keypressed = Convert.ToInt32(Console.ReadLine());
+                var keypressed = Console.ReadLine();
 
                 switch (keypressed)
                 {
-                    case 1://modificando productos
+                    case "1"://modificando productos
                         {
                             var client = new ProductionRecipes.GrpcProtos.Product.ProductClient(channel);
                             Console.Clear();
@@ -59,55 +62,55 @@ namespace ProductionRecipes.ConsoleApp
                             Console.WriteLine("3: Borrar un Producto 4: Obtener Informacion de un producto");
                             Console.WriteLine("5: Obtener el total de Productos");
 
-                            int producttask = Convert.ToInt32(Console.ReadLine());
+                            var producttask = Console.ReadLine();
                             switch (producttask)
                             {
-                                case 1:
+                                case "1":
                                     {
                                         CrearProducto(client);
                                         break;
 
                                     }//crear producto
-                                case 2:
+                                case "2":
                                     {
                                         ModificarProducto(client);
                                         break;
 
                                     }//Modificar el pproducto
-                                case 3:
+                                case "3":
                                     {
                                         EliminarProducto(client);
                                         break;
 
                                     }//Borrar producto
-                                case 4:
+                                case "4":
                                     {
                                         ObtenerProducto(client);
                                         break;
                                     }//Obtener informacion de un producto
-                                case 5:
+                                case "5":
                                     {
                                         ObtenerTodosLosProductos(client);
                                         break;
 
                                     }//Obtener el total de productos
                                 default:
-                                    Console.WriteLine("Numero equivocado");
+                                    Console.WriteLine("Error de tecleo");
                                     return;
                             }
                             break;
                         }
-                    case 2://modificando recetas y derivados
+                    case "2"://modificando recetas y derivados
                         {
                             Console.Clear();
                             Console.WriteLine("1: Recetas  2: Operaciones");
                             Console.WriteLine("3: Fases");
 
 
-                            int select = Convert.ToInt32(Console.ReadLine());
+                            var select = Console.ReadLine();
                             switch (select)
                             {
-                                case 1://Trabajo con Recetas
+                                case "1"://Trabajo con Recetas
                                     {
                                         var client = new ProductionRecipes.GrpcProtos.Recipe.RecipeClient(channel);
                                         var clientproduct = new ProductionRecipes.GrpcProtos.Product.ProductClient(channel);
@@ -116,40 +119,40 @@ namespace ProductionRecipes.ConsoleApp
                                         Console.WriteLine("3: Borrar una Receta 4: Obtener Informacion de una Receta");
                                         Console.WriteLine("5: Obtener el total de Recetas 6: Validar una Receta");
                                         Console.WriteLine("7: Obtener producto de una receta");
-                                        int recipetask = Convert.ToInt32(Console.ReadLine());
+                                        var recipetask = Console.ReadLine();
                                         switch (recipetask)
                                         {
-                                            case 1:
+                                            case "1":
                                                 {
                                                     CrearReceta(client, clientproduct);
                                                     break;
                                                 }//crearreceta
-                                            case 2:
+                                            case "2":
                                                 {
                                                     ModificarReceta(client, clientproduct);
                                                     break;
                                                 }//modificarreceta
-                                            case 3:
+                                            case "3":
                                                 {
                                                     EliminarReceta(client);
                                                     break;
                                                 }//eliminarreceta
-                                            case 4:
+                                            case "4":
                                                 {
                                                     ObtenerReceta(client);
                                                     break;
                                                 }//obtenerreceta
-                                            case 5:
+                                            case "5":
                                                 {
                                                     ObtenerTodasLasRecetas(client);
                                                     break;
                                                 }//obtenertodaslasrecetas
-                                            case 6:
+                                            case "6":
                                                 {
                                                     ValidarReceta(client);
                                                     break;
                                                 }//validarreceta
-                                            case 7:
+                                            case "7":
                                                 {
                                                     ObtenerProductodeReceta(client);
                                                     break;
@@ -157,37 +160,38 @@ namespace ProductionRecipes.ConsoleApp
                                         }
                                         break;
                                     }
-                                case 2://Trabajo con Operaciones
+                                case "2"://Trabajo con Operaciones
                                     {
                                         var client = new ProductionRecipes.GrpcProtos.Operation.OperationClient(channel);
+                                        var faseclient = new ProductionRecipes.GrpcProtos.Fase.FaseClient(channel);
                                         Console.Clear();
                                         Console.WriteLine("1: Crear una Operacion  2: Modificar una Operacion");
                                         Console.WriteLine("3: Borrar una Operacion 4: Obtener Informacion de una Operacion");
                                         Console.WriteLine("5: Obtener el total de Operaciones");
-                                        int optask = Convert.ToInt32(Console.ReadLine());
+                                        var optask = Console.ReadLine();
                                         switch (optask)
                                         {
-                                            case 1:
+                                            case "1":
                                                 {
                                                     CrearOperacion(client);
                                                     break;
                                                 }//crearOp
-                                            case 2:
+                                            case "2":
                                                 {
-                                                    ModificarOperacion(client);
+                                                    ModificarOperacion(client, faseclient);
                                                     break;
                                                 }//modificarOp
-                                            case 3:
+                                            case "3":
                                                 {
                                                     EliminarOperacion(client);
                                                     break;
                                                 }//eliminarOp
-                                            case 4:
+                                            case "4":
                                                 {
                                                     ObtenerOperacion(client);
                                                     break;
                                                 }//obtenerOp
-                                            case 5:
+                                            case "5":
                                                 {
                                                     ObtenerTodasLasOperaciones(client);
                                                     break;
@@ -195,37 +199,37 @@ namespace ProductionRecipes.ConsoleApp
                                         }
                                         break;
                                     }
-                                case 3://Trabajo con fases
+                                case "3"://Trabajo con fases
                                     {
                                         var client = new ProductionRecipes.GrpcProtos.Fase.FaseClient(channel);
                                         Console.Clear();
                                         Console.WriteLine("1: Crear una Fase  2: Modificar una Fase");
                                         Console.WriteLine("3: Borrar una Fase 4: Obtener Informacion de una Fase");
                                         Console.WriteLine("5: Obtener el total de Fases");
-                                        int fasetask = Convert.ToInt32(Console.ReadLine());
+                                        var fasetask = Console.ReadLine();
                                         switch (fasetask)
                                         {
-                                            case 1:
+                                            case "1":
                                                 {
                                                     CrearFase(client);
                                                     break;
                                                 }//crearfase
-                                            case 2:
+                                            case "2":
                                                 {
                                                     ModificarFase(client);
                                                     break;
                                                 }//modificarfase
-                                            case 3:
+                                            case "3":
                                                 {
                                                     EliminarFase(client);
                                                     break;
                                                 }//eliminarfase
-                                            case 4:
+                                            case "4":
                                                 {
                                                     ObtenerFase(client);
                                                     break;
                                                 }//obtenerfase
-                                            case 5:
+                                            case "5":
                                                 {
                                                     ObtenerTodasLasFases(client);
                                                     break;
@@ -240,7 +244,7 @@ namespace ProductionRecipes.ConsoleApp
                             }
                             break;
                         }
-                    case 3:
+                    case "3":
                         {
                             turnoff = true;
                             break;
@@ -309,41 +313,47 @@ namespace ProductionRecipes.ConsoleApp
             }
             Console.WriteLine("Diga la propiedad del producto a modificar");
             Console.WriteLine("1: Nombre. 2:Nombre de la Compania. 3:Tipo del envase");
-            var select = Console.Read();
+            int select = Convert.ToInt32(Console.ReadLine());
             switch (select)
 
             {
-                case '1':
+                case 1:
                     Console.Clear();
                     Console.WriteLine("Diga el nuevo nombre del producto");
                     var nametemp = Console.ReadLine();
+                    if (client.GetAllProducts(new Google.Protobuf.WellKnownTypes.Empty()).Items.Any(i => i.Name == nametemp))
+                    {
+                        Console.WriteLine("Ya existe un producto con ese nombre");
+                        return;
+                    }
                     producttoupdate.Name = nametemp;
                     Console.WriteLine($"Nuevo Nombre:{producttoupdate.Name}");
                     break;
-                case '2':
+                case 2:
                     Console.Clear();
                     Console.WriteLine("Diga el nuevo nombre de la compania");
                     producttoupdate.Companyname = Console.ReadLine();
                     Console.WriteLine($"Nuevo Nombre:{producttoupdate.Companyname}");
                     break;
-                case '3':
+                case 3:
                     Console.WriteLine("Diga el tipo de Envase");
                     Console.WriteLine("1:Botella 2:Caja 3:Ampula 4:Blister 5:Bolsa");
-                    switch (Console.Read())
+                    select = Convert.ToInt32(Console.ReadLine());
+                    switch (select)
                     {
-                        case '1':
+                        case 1:
                             producttoupdate.ContainerShape = GrpcProtos.ContainerShape.Botella;
                             break;
-                        case '2':
+                        case 2:
                             producttoupdate.ContainerShape = GrpcProtos.ContainerShape.Caja;
                             break;
-                        case '3':
+                        case 3:
                             producttoupdate.ContainerShape = GrpcProtos.ContainerShape.Ampula;
                             break;
-                        case '4':
+                        case 4:
                             producttoupdate.ContainerShape = GrpcProtos.ContainerShape.Blister;
                             break;
-                        case '5':
+                        case 5:
                             producttoupdate.ContainerShape = GrpcProtos.ContainerShape.Bolsa;
                             break;
                         default:
@@ -361,7 +371,9 @@ namespace ProductionRecipes.ConsoleApp
             var updatedGetResponse = client.GetProduct(new GetRequest() { Id = producttoupdate.Id });
             if (updatedGetResponse is not null &&
                 updatedGetResponse.KindCase == NullableProductDTO.KindOneofCase.Product &&
-                updatedGetResponse.Product == producttoupdate)
+               updatedGetResponse.Product.Name == producttoupdate.Name &&
+               updatedGetResponse.Product.Companyname == producttoupdate.Companyname &&
+               updatedGetResponse.Product.ContainerShape == producttoupdate.ContainerShape)
             {
                 Console.WriteLine($"Modificación exitosa.");
                 return;
@@ -383,7 +395,17 @@ namespace ProductionRecipes.ConsoleApp
             }
             else
             {
-                Console.WriteLine($"Diga el nombre del producto quiere eliminar de los {getResponse.Items.Count} existentes");
+                Console.WriteLine($"Diga el nombre del producto quiere eliminar");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var nombre = getResponse.Items[i].Name;
+                    var id = getResponse.Items[i].Id;
+                    var nombrecomp = getResponse.Items[i].Companyname;
+                    var tipoenvase = getResponse.Items[i].ContainerShape.ToString();
+                    Console.WriteLine($"Producto {i + 1}");
+                    Console.WriteLine($" Nombre: {nombre} ID: {id}");
+                    Console.WriteLine($" Nombre de la compania: {nombrecomp} Tipo de envase: {tipoenvase}");
+                };
             }
             string nameproduct = new(Console.ReadLine());
             var producttodelete = client.GetAllProducts(new Google.Protobuf.WellKnownTypes.Empty()).Items.FirstOrDefault(i => i.Name == nameproduct);
@@ -484,28 +506,32 @@ namespace ProductionRecipes.ConsoleApp
             string descripcionfase = new(Console.ReadLine());
             Console.WriteLine("Escriba la cantidad de acciones de control que posee");
             int cacant = Convert.ToInt32(Console.ReadLine());
-
-            Google.Protobuf.Collections.RepeatedField<GrpcProtos.ControlAction> controlActions = new();
+            
+            GrpcProtos.CreateFaseRequest temp = new();
             for (int i = 0; i < cacant; i++)
             {
                 
                 Console.WriteLine("Escriba el nombre de la accion de control");
                 string? nameac = Console.ReadLine();
-                controlActions[i].ActionName = nameac;
+                
                 Console.WriteLine("Escriba la cantidad de la accion de control");
                 int cantac = Convert.ToInt32(Console.ReadLine());
-                controlActions[i].Amount = cantac;
+                
                 Console.WriteLine("Escriba la unidad de medida de la accion de control");
                 string? umac = Console.ReadLine();
-                controlActions[i].Measureunit = umac;
+                var temporalCA = new GrpcProtos.ControlAction()
+                {
+                    ActionName = nameac,
+                    Amount = cantac,
+                    Measureunit = umac
+                };
+               
+                temp.Actionlist.Add(temporalCA);
             }//para crear la lista de acciones de control
-
-            var createResponse = client.CreateFase(new CreateFaseRequest()
-            {
-                Name = namefase,
-                Description = descripcionfase
-                //actionlist
-            }) ;
+            temp.Name = namefase;
+            temp.Description = descripcionfase;
+            
+            var createResponse = client.CreateFase(temp) ;
 
             if (createResponse is null)
             {
@@ -529,8 +555,15 @@ namespace ProductionRecipes.ConsoleApp
             }
             else
             {
-                Console.WriteLine($"Diga el nombre de la fase que quiere modificar de las {getResponse.Items.Count} existentes");
+                Console.WriteLine($"Fases existentes");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var nombre = getResponse.Items[i].Name;
+                    Console.WriteLine($"Fase {i + 1} Nombre: {nombre} ");
+
+                };
             }
+            Console.WriteLine("Diga el nombre de la fase a modificar");
             string namefase = new(Console.ReadLine());
             var fasetoupdate = client.GetAllFases(new Google.Protobuf.WellKnownTypes.Empty()).Items.FirstOrDefault(i => i.Name == namefase);
             if (fasetoupdate is null)
@@ -539,26 +572,88 @@ namespace ProductionRecipes.ConsoleApp
                 return;
             }
             Console.WriteLine("Diga la propiedad de la fase a modificar");
-            Console.WriteLine("1: Nombre. 2:Descripcion. 3:Duracion");
-            switch (Console.Read())
+            Console.WriteLine("1: Nombre. 2:Descripcion. 3:Duracion 4:Acciones de control");
+            switch (Console.ReadLine())
 
             {
-                case '1':
+                case "1":
                     Console.WriteLine("Diga el nuevo nombre de la fase");
                     fasetoupdate.Name = Console.ReadLine();
+                    if (client.GetAllFases(new Google.Protobuf.WellKnownTypes.Empty()).Items.Any(i =>i.Name == fasetoupdate.Name))
+                    {
+                        Console.WriteLine("Ya existe una fase con ese nombre");
+                        return;
+                    }
                     Console.WriteLine($"Nuevo Nombre:{fasetoupdate.Name}");
                     break;
-                case '2':
+                case "2":
                     Console.WriteLine("Diga la nueva descripcion");
                     fasetoupdate.Description = Console.ReadLine();
                     Console.WriteLine($"Nuevo Nombre:{fasetoupdate.Description}");
                     break;
-                case '3':
+                case "3":
                     Console.WriteLine("Diga la duracion");
                     fasetoupdate.Duration = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine($"Nueva duracion {fasetoupdate.Duration}");
                     break;
+                case "4":
+                    Console.WriteLine("Desea crear una nueva accion de control(Presione 1) o modoficar una existente Presione (2)");
+                    var select = Console.ReadLine();
+                    switch (select)
+                    {
+                        case "1":
+                            Console.WriteLine("Escriba el nombre de la accion de control");
+                            string? namenewac = Console.ReadLine();
 
+                            Console.WriteLine("Escriba la cantidad de la accion de control");
+                            int cantnewac = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Escriba la unidad de medida de la accion de control");
+                            string? umnewac = Console.ReadLine();
+                            var newCA = new GrpcProtos.ControlAction()
+                            {
+                                ActionName = namenewac,
+                                Amount = cantnewac,
+                                Measureunit = umnewac
+                            };
+                            fasetoupdate.Actionlist.Add(newCA);
+                            break;
+                        case "2":
+                            Console.WriteLine("Diga el numero de la accion de control a modificar");
+                            var selectca = Convert.ToInt32(Console.ReadLine());
+                            if (selectca > fasetoupdate.Actionlist.Count)
+                            {
+                                Console.WriteLine("Error al teclear, no existen tantas acciones de control");
+                                return;
+                            }
+                            Console.WriteLine("Escriba el nombre de la accion de control");
+                            string? nameac = Console.ReadLine();
+
+                            Console.WriteLine("Escriba la cantidad de la accion de control");
+                            int cantac = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Escriba la unidad de medida de la accion de control");
+                            string? umac = Console.ReadLine();
+                            var temporalCA = new GrpcProtos.ControlAction()
+                            {
+                                ActionName = nameac,
+                                Amount = cantac,
+                                Measureunit = umac
+                            };
+                            fasetoupdate.Actionlist.RemoveAt(selectca-1);
+                            fasetoupdate.Actionlist.Insert(selectca-1, temporalCA);
+                            break;
+                        default:
+                            Console.WriteLine("Error al teclear");
+                            return;
+                            
+                    }
+                   break;
+
+                default:
+                    Console.WriteLine("Error al teclear");
+                    return;
+                    
             }
 
 
@@ -567,7 +662,11 @@ namespace ProductionRecipes.ConsoleApp
             var updatedGetResponse = client.GetFase(new GetRequest() { Id = fasetoupdate.Id });
             if (updatedGetResponse is not null &&
                 updatedGetResponse.KindCase == NullableFaseDTO.KindOneofCase.Fase &&
-                updatedGetResponse.Fase == fasetoupdate)
+                updatedGetResponse.Fase.Description == fasetoupdate.Description &&
+                updatedGetResponse.Fase.Duration == fasetoupdate.Duration &&
+               updatedGetResponse.Fase.Name == fasetoupdate.Name &&
+               updatedGetResponse.Fase.Actionlist.SequenceEqual(fasetoupdate.Actionlist)
+                )
             {
                 Console.WriteLine($"Modificación exitosa.");
                 return;
@@ -620,10 +719,17 @@ namespace ProductionRecipes.ConsoleApp
             }
             else
             {
-                Console.WriteLine($"Diga el nombre de la fase a mostrar de las {getResponse.Items.Count} existentes");
+                Console.WriteLine($"Fases existentes");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var nombre = getResponse.Items[i].Name;
+                    Console.WriteLine($"Fase {i + 1} Nombre: {nombre} ");
+                    
+                }
             }
+            Console.WriteLine("Diga el nombre de la fase a modificar");
             string namefase = new(Console.ReadLine());
-            var fasesobtained = getResponse.Items.TakeWhile(i => i.Name == namefase);// creando un inumerable de todas las fases con ese nombre
+            var fasesobtained = getResponse.Items.Where(i => i.Name == namefase);// creando un inumerable de todas las fases con ese nombre
             if (fasesobtained.Any() == false)
             {
                 Console.WriteLine("No existe esa fase");
@@ -635,6 +741,12 @@ namespace ProductionRecipes.ConsoleApp
                 Console.WriteLine($"Obtención exitosa. Nombre: {faseResponse.Name}");
                 Console.WriteLine($"Descripcion: {faseResponse.Description}");
                 Console.WriteLine($"Duracion: {faseResponse.Duration}");
+                Console.WriteLine($"{faseResponse.Actionlist.Count} Acciones de control:");
+                for (int i = 0; i < faseResponse.Actionlist.Count; i++)
+                {
+                    Console.WriteLine($"Accion de control {i}");
+                    Console.WriteLine($"{faseResponse.Actionlist[i].ActionName} {faseResponse.Actionlist[i].Amount} {faseResponse.Actionlist[i].Measureunit}");
+                }
                 return;
             }
             if (fasesobtained.Count() > 1)// si hay mas de una fase con ese nombre
@@ -652,7 +764,12 @@ namespace ProductionRecipes.ConsoleApp
                     Console.WriteLine($"Obtención exitosa. Nombre: {faseResponse.Name}");
                     Console.WriteLine($"Descripcion: {faseResponse.Description}");
                     Console.WriteLine($"Duracion: {faseResponse.Duration}");
-
+                    Console.WriteLine($"Acciones de control:");
+                    for (int i = 0; i < faseResponse.Actionlist.Count; i++)
+                    {
+                        Console.WriteLine($"Accion de control {i+1}");
+                        Console.WriteLine($"{faseResponse.Actionlist[i].ActionName}{faseResponse.Actionlist[i].Amount}{faseResponse.Actionlist[i].Measureunit}");
+                    }
                 }
             }
 
@@ -690,7 +807,6 @@ namespace ProductionRecipes.ConsoleApp
             Console.WriteLine("Escriba la descripcion");
             string descripcionop = new(Console.ReadLine());
             
-            //lista de fases???
             
             
 
@@ -713,7 +829,7 @@ namespace ProductionRecipes.ConsoleApp
             }
         }
 
-        public static void ModificarOperacion(GrpcProtos.Operation.OperationClient client)
+        public static void ModificarOperacion(GrpcProtos.Operation.OperationClient client, GrpcProtos.Fase.FaseClient faseclient)
         {
             var getResponse = client.GetAllOperations(new Google.Protobuf.WellKnownTypes.Empty());
             if (getResponse.Items is null)
@@ -723,7 +839,14 @@ namespace ProductionRecipes.ConsoleApp
             }
             else
             {
-                Console.WriteLine($"Diga el nombre de la operacion que quiere modificar de las {getResponse.Items.Count} existentes");
+                Console.WriteLine($"Operaciones existentes");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var nombre = getResponse.Items[i].Name;
+                    Console.WriteLine($"Operacion {i + 1} Nombre: {nombre} ");
+
+                };
+                Console.WriteLine($"Diga el nombre de la operacion que quiere modificar");
             }
             string nameop = new(Console.ReadLine());
             var operationtoupdate = client.GetAllOperations(new Google.Protobuf.WellKnownTypes.Empty()).Items.FirstOrDefault(i => i.Name == nameop);
@@ -733,25 +856,68 @@ namespace ProductionRecipes.ConsoleApp
                 return;
             }
             Console.WriteLine("Diga la propiedad de la operacion a modificar");
-            Console.WriteLine("1: Nombre. 2:Descripcion. 3:Duracion");
-            switch (Console.Read())
+            Console.WriteLine("1: Nombre. 2:Descripcion. 3:Duracion 4: Lista de fases");
+            switch (Console.ReadLine())
 
             {
-                case '1':
-                    Console.WriteLine("Diga el nuevo nombre de la fase");
+                case "1":
+                    Console.WriteLine("Diga el nuevo nombre de la operacion");
                     operationtoupdate.Name = Console.ReadLine();
                     Console.WriteLine($"Nuevo Nombre:{operationtoupdate.Name}");
                     break;
-                case '2':
+                case "2":
                     Console.WriteLine("Diga la nueva descripcion");
                     operationtoupdate.Description = Console.ReadLine();
                     Console.WriteLine($"Nuevo Nombre:{operationtoupdate.Description}");
                     break;
-                case '3':
+                case "3":
                     Console.WriteLine("Diga la nueva unidad sobre la que se realizara la operacion");
                     operationtoupdate.Unityname = Console.ReadLine();
                     Console.WriteLine($"Nueva Unidad {operationtoupdate.Unityname}");
                     break;
+                case "4":
+                    Console.WriteLine("Desea adjuntar(Presione 1) o eliminar(Presione 2) una fase de la lista");
+                    switch(Console.ReadLine())
+                    {
+                        case "1":
+                            var getResponseFase = faseclient.GetAllFases(new Google.Protobuf.WellKnownTypes.Empty());
+                            if (getResponseFase.Items is null)
+                            {
+                                Console.WriteLine("Error al obtener las fases");
+                                return;
+                            }
+                            Console.WriteLine($"Fases existentes");
+                            for (int i = 0; i < getResponseFase.Items.Count; i++)
+                            {
+                                var nombre = getResponseFase.Items[i].Name;
+                                Console.WriteLine($"Fase {i + 1} Nombre: {nombre} ");
+                            };
+                            Console.WriteLine("Cual fase desea adjuntar a la lista");
+                            var faseadjuntarname = Console.ReadLine();
+                            var faseadjuntar = getResponseFase.Items.FirstOrDefault(i => i.Name == faseadjuntarname);
+                            operationtoupdate.Faselist.Add(faseadjuntar);
+                            break;
+                        case "2":
+                            Console.WriteLine($"Fases existentes en la lista");
+                            for (int i = 0; i < operationtoupdate.Faselist.Count; i++)
+                            {
+                                var nombre = operationtoupdate.Faselist[i].Name;
+                                Console.WriteLine($"Fase {i + 1} Nombre: {nombre} ");
+                                Console.WriteLine("Cual fase desea eliminar de la lista");
+                                var fasedeletename = Console.ReadLine();
+                                var fasedelete = operationtoupdate.Faselist.FirstOrDefault(i=>i.Name == fasedeletename);
+                                operationtoupdate.Faselist.Remove(fasedelete);
+                            };
+                            break;
+                        default:
+                            Console.WriteLine("Error de tecleo");
+                            return;
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Error");
+                    return;
 
             }
 
@@ -761,7 +927,10 @@ namespace ProductionRecipes.ConsoleApp
             var updatedGetResponse = client.GetOperation(new GetRequest() { Id = operationtoupdate.Id });
             if (updatedGetResponse is not null &&
                 updatedGetResponse.KindCase == NullableOperationDTO.KindOneofCase.Operation &&
-                updatedGetResponse.Operation == operationtoupdate)
+                updatedGetResponse.Operation.Unityname == operationtoupdate.Unityname &&
+                updatedGetResponse.Operation.Id == operationtoupdate.Id&&
+                updatedGetResponse.Operation.Name == operationtoupdate.Name
+                )
             {
                 Console.WriteLine($"Modificación exitosa.");
                 return;
@@ -812,43 +981,56 @@ namespace ProductionRecipes.ConsoleApp
             }
             else
             {
-                Console.WriteLine($"Diga el nombre de la operacion a mostrar de las {getResponse.Items.Count} existentes");
-            }
-            string nameoperation = new(Console.ReadLine());
-            var opsobtained = getResponse.Items.TakeWhile(i => i.Name == nameoperation);// creando un inumerable de todas las fases con ese nombre
-            if (opsobtained.Any() == false)
-            {
-                Console.WriteLine("No existe esa operacion");
-                return;
-            }
-            if (opsobtained.Count() == 1)// solo hay una fase con ese nombre
-            {
-                var operationResponse = opsobtained.Single();
-                Console.WriteLine($"Obtención exitosa. Nombre: {operationResponse.Name}");
-                Console.WriteLine($"Descripcion: {operationResponse.Description}");
-                Console.WriteLine($"Nombre de la unidad: {operationResponse.Unityname}");
-                return;
-            }
-            if (opsobtained.Count() > 1)// si hay mas de una fase con ese nombre
-            {
-                Console.WriteLine("Existen varias operaciones con ese nombre, por favor teclee el id de la operacion");
-                var opid = Console.ReadLine();
-                var opResponse = opsobtained.FirstOrDefault(i => i.Id == opid);
-                if (opResponse is null)
+                Console.WriteLine($"Diga el nombre de la operacion a mostrar sus detalles");
+                Console.WriteLine($"Operaciones existentes");
+                for (int i = 0; i < getResponse.Items.Count; i++)
                 {
-                    Console.WriteLine("No existe una operacion con ese id");
+                    var nombre = getResponse.Items[i].Name;
+                    Console.WriteLine($"Operacion {i + 1} Nombre: {nombre}");
+                }
+                string nameoperation = new(Console.ReadLine());
+                var opsobtained = getResponse.Items.Where(i => i.Name == nameoperation);// creando un inumerable de todas las fases con ese nombre
+                if (opsobtained.Any() == false)
+                {
+                    Console.WriteLine("No existe esa operacion");
                     return;
                 }
-                else
+                if (opsobtained.Count() == 1)// solo hay una fase con ese nombre
                 {
-                    Console.WriteLine($"Obtención exitosa. Nombre: {opResponse.Name}");
-                    Console.WriteLine($"Descripcion: {opResponse.Description}");
-                    Console.WriteLine($"Nombre de la unidad: {opResponse.Unityname}");
+                    var operationResponse = opsobtained.Single();
+                    Console.WriteLine($"Obtención exitosa. Nombre: {operationResponse.Name}");
+                    Console.WriteLine($"Descripcion: {operationResponse.Description}");
+                    Console.WriteLine($"Nombre de la unidad: {operationResponse.Unityname}");
+                    for (int i = 0; i < operationResponse.Faselist.Count(); i++)
+                    {
+                        var nombre = operationResponse.Faselist[i].Name;
+                        Console.WriteLine($"Fase {i + 1} Nombre: {nombre} "); ;
+                    }
 
+
+                    return;
                 }
-            }
+                if (opsobtained.Count() > 1)// si hay mas de una fase con ese nombre
+                {
+                    Console.WriteLine("Existen varias operaciones con ese nombre, por favor teclee el id de la operacion");
+                    var opid = Console.ReadLine();
+                    var opResponse = opsobtained.FirstOrDefault(i => i.Id == opid);
+                    if (opResponse is null)
+                    {
+                        Console.WriteLine("No existe una operacion con ese id");
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Obtención exitosa. Nombre: {opResponse.Name}");
+                        Console.WriteLine($"Descripcion: {opResponse.Description}");
+                        Console.WriteLine($"Nombre de la unidad: {opResponse.Unityname}");
 
-            return;
+                    }
+                }
+
+                return;
+            }
         }
 
         public static void ObtenerTodasLasOperaciones(GrpcProtos.Operation.OperationClient client)
@@ -889,6 +1071,12 @@ namespace ProductionRecipes.ConsoleApp
             else
             {
                 Console.WriteLine($"Diga el nombre del producto objetivo la receta");
+                Console.WriteLine($"Estan son los productos existentes ");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var nombre = getResponse.Items[i].Name;
+                    Console.WriteLine($"Fase {i + 1} Nombre: {nombre} ");
+                }
             }
             string nameproduct = new(Console.ReadLine());
             var productsobtained = getResponse.Items.TakeWhile(i => i.Name == nameproduct);// creando un inumerable de todos los productos con ese nombre
@@ -913,13 +1101,9 @@ namespace ProductionRecipes.ConsoleApp
                 }
                 
             }
-
-            var createResponse = client.CreateRecipe(new CreateRecipeRequest()
-            {
-                Producttomake = productResponse
-                 //lista de operaciones???
-
-            });
+            GrpcProtos.CreateRecipeRequest temp = new();
+            temp.Producttomake = productResponse;
+            var createResponse = client.CreateRecipe(temp);
 
             if (createResponse is null)
             {
@@ -946,8 +1130,8 @@ namespace ProductionRecipes.ConsoleApp
                 Console.WriteLine($"Estan son las recetas existentes y el producto al que estan destinadas ");
                 for (int i = 0; i < getResponse.Items.Count; i++)
                 {
-                    var item = getResponse.Items[i].Producttomake.Name;
-                    Console.WriteLine($"Receta {i+1} Producto: {item}");
+                    var item = getResponse.Items[i].Producttomake;
+                    Console.WriteLine($"Receta {i+1} Producto: {item.Name}");
                 }
                 Console.WriteLine("Elija el numero de receta a modificar"); 
             }
@@ -1065,7 +1249,54 @@ namespace ProductionRecipes.ConsoleApp
         }
         public static void ValidarReceta(GrpcProtos.Recipe.RecipeClient client)
         {
-
+            var getResponse = client.GetAllRecipes(new Google.Protobuf.WellKnownTypes.Empty());
+            if (getResponse.Items is null)
+            {
+                Console.WriteLine("Error al obtener las recetas");
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"Estan son las recetas existentes y el producto al que estan destinadas ");
+                for (int i = 0; i < getResponse.Items.Count; i++)
+                {
+                    var item = getResponse.Items[i].Producttomake;
+                    Console.WriteLine($"Receta {i + 1} Producto: {item.Name}");
+                }
+                Console.WriteLine("Elija el numero de receta a validar");
+            }
+            int recipenumber = Convert.ToInt32(Console.ReadLine());
+            var recipetovalidate = getResponse.Items[recipenumber-1];// -1 xq empieza desde 0
+            if (recipetovalidate is null)
+            {
+                Console.WriteLine("No existe esa receta");
+                return;
+            }
+            Console.WriteLine("Introduzca los datos de validacion.");
+            Console.WriteLine("Nombre del experto");
+            var expert = Console.ReadLine();
+            var validatedate = DateTime.Now.ToString();
+            client.ValidateRecipe(new ValidateRecipeRequest()
+            {
+                Expert = expert,
+                Recipe = recipetovalidate,
+                Validationdate = validatedate
+            });
+            var updatedGetResponse = client.GetRecipe(new GetRequest() { Id = recipetovalidate.Id });
+            if (updatedGetResponse is not null &&
+                updatedGetResponse.KindCase == NullableRecipeDTO.KindOneofCase.Recipe &&
+                updatedGetResponse.Recipe.Validationdate == validatedate &&
+                updatedGetResponse.Recipe.Expertname == expert
+                )
+            {
+                Console.WriteLine($"Modificación exitosa.");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Hubo un error al modificar");
+                return;
+            }
 
         }
 

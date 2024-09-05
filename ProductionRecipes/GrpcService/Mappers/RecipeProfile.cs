@@ -8,8 +8,7 @@ namespace ProductionRecipes.Services.Mappers
        
         public RecipeProfile()
         {
-          //private readonly IMapper _mapper;
-        //OperationsList.Items.AddRange(sexecOperations.Select(m => _mapper.Map<OperationDTO>(m)));
+        
 
         CreateMap<Domain.Entities.Recipe.Recipe,
                 GrpcProtos.RecipeDTO>()
@@ -40,7 +39,14 @@ namespace ProductionRecipes.Services.Mappers
                     CompanyName = s.Producttomake.Companyname
                 }))
                 .ForMember(t => t.ExecOperation, o => o.MapFrom(s => s.Operationlist));
-            
+            CreateMap<GrpcProtos.CreateRecipeRequest,
+                Domain.Entities.Recipe.Recipe>()
+                .ForMember(t => t.ProductToMake, o => o.MapFrom(s => new Domain.Entities.Products.Product(s.Producttomake.Name, new Guid(s.Producttomake.Id))
+                {
+                    Shape = (Domain.Types.ContainerShape)s.Producttomake.ContainerShape,
+                    CompanyName = s.Producttomake.Companyname
+                }));
+                
         }
     }
 }

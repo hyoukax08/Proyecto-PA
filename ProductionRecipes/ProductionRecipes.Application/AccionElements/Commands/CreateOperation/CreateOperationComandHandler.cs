@@ -27,7 +27,6 @@ namespace ProductionRecipes.Application.AccionElements.Commands.CreateOperation
         public Task<Operation> Handle(CreateOperationCommand request, CancellationToken cancellationToken)
         {
             Operation result = new Operation(
-                request.FaseList,
                 request.Name,
                 request.Description,
                 Guid.NewGuid());

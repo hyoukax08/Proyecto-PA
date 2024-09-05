@@ -10,5 +10,5 @@ using ProductionRecipes.Application.Abstract;
 
 namespace ProductionRecipes.Application.Recipes.Commands.CreateRecipe
 {
-    public record CreateRecipeCommand(Product Producttomake, List<Operation> ExecOperation):ICommand<Recipe>;
+    public record CreateRecipeCommand(Product Producttomake):ICommand<Recipe>;
 }

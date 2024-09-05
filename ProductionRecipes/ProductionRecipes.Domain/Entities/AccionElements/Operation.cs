@@ -38,9 +38,8 @@ namespace ProductionRecipes.Domain.Entities.AccionElements.Operations
         /// <param name="description"></param>
         /// <param name="unityName"></param>
         /// <param name="execFases"></param>
-        public Operation(List<Fase> execFases, string name, string description, Guid id) : base(name, description, id)
+        public Operation( string name, string description, Guid id) : base(name, description, id)
         {
-            ExecFases = execFases;
         }
     }
 }

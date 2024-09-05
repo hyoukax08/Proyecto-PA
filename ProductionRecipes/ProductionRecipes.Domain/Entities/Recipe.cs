@@ -54,11 +54,11 @@ namespace ProductionRecipes.Domain.Entities.Recipe
         /// <param name="creationDate"></param>
         /// <param name="execOperation"></param>
         /// <param name="execFases"></param>
-        public Recipe(Product producttomake, List<Operation> execOperation, Guid id):base(id)
+        public Recipe(Product producttomake, Guid id):base(id)
         {
             CreationDate = DateTime.Now;
             ProductToMake = producttomake;
-            ExecOperation = execOperation;
+
         }
     }
 }

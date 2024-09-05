@@ -40,5 +40,4 @@ message NullableOperationDTO{
 message CreateOperationRequest{
 	string name = 1;
 	string description = 2;
-	repeated FaseDTO faselist = 3;
 }

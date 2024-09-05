@@ -29,10 +29,7 @@ namespace ProductionRecipes.Services.Services
         public override Task<RecipeDTO> CreateRecipe(CreateRecipeRequest request, ServerCallContext context)
         {
             var command = new CreateRecipeCommand(
-                //convirtiendo de tipo "repeated " a lista de fases 
-               // _mapper.Map<Domain.Entities.Recipe.Recipe>(request).ProductToMake,
-                _mapper.Map<Domain.Entities.Products.Product>(request.Producttomake),
-                _mapper.Map<Domain.Entities.Recipe.Recipe>(request).ExecOperation);
+                _mapper.Map<Domain.Entities.Recipe.Recipe>(request).ProductToMake);
 
             var result = _mediator.Send(command).Result;
             return Task.FromResult(_mapper.Map<RecipeDTO>(result)); ;

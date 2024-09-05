@@ -40,7 +40,7 @@ namespace ProductionRecipes.DataAccess.Tests
             Guid id = Guid.NewGuid();
             List<Operation> listoperation1 = new List<Operation>();
             Product product1 = new Product("prueba", id);
-            Recipe recipe1 = new(product1, listoperation1, id);
+            Recipe recipe1 = new(product1, id);
 
             // Execute
             _recipeRepository.AddRecipe(recipe1);

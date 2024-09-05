@@ -27,8 +27,6 @@ namespace ProductionRecipes.Services.Services
         public override Task<OperationDTO> CreateOperation(CreateOperationRequest request, ServerCallContext context)
         {
             var command = new CreateOperationCommand(
-                //convirtiendo de tipo "repeated fasesdto" a lista de fases 
-                _mapper.Map<Domain.Entities.AccionElements.Operations.Operation>(request).ExecFases,
                 request.Name,
                 request.Description);
 
